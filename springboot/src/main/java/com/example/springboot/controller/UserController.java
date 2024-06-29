@@ -14,7 +14,7 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
     @Autowired
-    IUserService userService;
+    private IUserService userService;
     @PostMapping("/addAdmin")
     public Result addAdmin(@RequestBody user user) {
         userService.addAdmin(user);

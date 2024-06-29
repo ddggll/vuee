@@ -2,7 +2,7 @@
   <div>
     <h2>修改信息</h2>
     <div style="padding: 20px ;margin: 20px;width: 400px" class="form-area">
-      <el-form  label-position="" label-width="80px" :model="form" ;inline="true" style="width: 600px;margin-left:auto;">
+      <el-form  label-position="" label-width="80px" :model="form" inline="true" style="width: 600px;margin-left:auto;">
         <el-form-item label="姓名">
           <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
