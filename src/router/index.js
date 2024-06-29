@@ -43,17 +43,7 @@ const routes = [
     path: '/editAdmin',
     name: 'editAdmin',
     component: () => import('../views/Mange/editAdmin.vue')
-  },
-  {
-    path: '/editAdmin',
-    name: 'editAdmin',
-    component: () => import('../views/Mange/editAdmin.vue')
-  },
-    {
-    path: '/addUser',
-    name: 'addUser',
-    component: () => import('../views/Mange/AddUser.vue')
-  },
+  }
 ]
 
 const router = new VueRouter({
