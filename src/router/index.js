@@ -43,6 +43,11 @@ const routes = [
     path: '/editAdmin',
     name: 'editAdmin',
     component: () => import('../views/Mange/editAdmin.vue')
+  },
+  {
+    path: '/editAdmin',
+    name: 'editAdmin',
+    component: () => import('../views/Mange/editAdmin.vue')
   }
 ]
 
