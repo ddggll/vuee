@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h2 style="margin-left: 200px">新增成员</h2>
-    <div style="padding: 20px ;margin-left: 300px;width: 600px;border: blue solid 1px " class="demo-form-inline">
+    <h2 >新增成员</h2>
+    <div style="padding: 20px ;margin-left: 300px;width: 600px;" class="demo-form-inline">
       <el-form  label-position="top" label-width="80px" :model="form" style="width: 600px;margin-left:auto;" :inline="true">
         <el-form-item label="姓名" style="width: 100px;">
           <el-input v-model="form.name" placeholder="请输入姓名"></el-input>

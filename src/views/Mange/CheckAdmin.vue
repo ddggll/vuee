@@ -26,7 +26,7 @@
               title="这是一段内容确定删除吗？"
               @confirm="del(scope.row.id)"
           >
-            <el-button type="danger" style="margin-left: 5px" ;slot="reference">删除</el-button>
+            <el-button type="danger" style="margin-left: 5px" slot="reference">删除</el-button>
           </el-popconfirm>
 
         </template>
