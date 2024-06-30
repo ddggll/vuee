@@ -33,21 +33,6 @@ const routes = [
     path: '/user',
     name: 'user',
     component: () => import('../views/login/UserView.vue')
-  },
-  {
-    path: '/addAdmin',
-    name: 'addAdmin',
-    component: () => import('../views/Mange/AddAdmin.vue')
-  },
-  {
-    path: '/editAdmin',
-    name: 'editAdmin',
-    component: () => import('../views/Mange/editAdmin.vue')
-  },
-  {
-    path: '/test',
-    name: 'test',
-    component: () => import('../views/Mange/test.vue')
   }
 ]
 

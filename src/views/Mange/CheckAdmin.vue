@@ -72,7 +72,7 @@
         </el-form>
       </div>
       <div style="text-align: center">
-        <el-button type="primary" @click="addAdmin" >提交</el-button>
+        <el-button type="primary" @click ="addAdmin" >提交</el-button>
         <!--      <el-button type="danger">取消</el-button>-->
       </div>
     </el-dialog>
@@ -238,7 +238,8 @@ export default {
             if(res.code === "success"){
               this.$notify.success('更新成功')
               this.editAdminLog=false
-              this.refresh()
+              this.load()
+              // this.refresh()
             }
             else{
               this.$notify.error(res.msg);
