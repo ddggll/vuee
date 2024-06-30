@@ -10,6 +10,7 @@
       <el-button style="margin-left: 5px " type="warning" @click="reset">
         <i class="el-icon-refresh"></i>重置
       </el-button>
+      <el-button type="primary" style="margin-left: 650px" @click="addAdminLog = true">添加成员</el-button>
     </div>
     <el-table :data="tableData" stripe>
       <el-table-column prop="id" label="编号"></el-table-column>
@@ -27,8 +28,8 @@
               @confirm="del(scope.row.id)"
           >
             <el-button type="danger" style="margin-left: 5px" slot="reference">删除</el-button>
-          </el-popconfirm>
 
+          </el-popconfirm>
         </template>
       </el-table-column>
 
@@ -44,8 +45,45 @@
           :total="total">
       </el-pagination>
     </div>
-  </div>
-</template>
+
+
+<!--    添加成员弹窗-->
+      <el-dialog title="提示" :visible.sync="addAdminLog" width="50%" center>
+        <h2 style="text-align: center">新增成员</h2>
+        <div class="login-box">
+          <el-form  label-position="labelPosition" label-width="80px"  model="form">
+            <el-form-item label="姓名" style="width: 300px;">
+              <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
+            </el-form-item>
+            <el-form-item  label="年龄" style="width: 300px;">
+              <el-input v-model="form.age" placeholder="请输入年龄"></el-input>
+            </el-form-item>
+            <br>
+            <el-form-item  label="性别">
+              <!--       <el-input v-model="form.sex" placeholder="请输入性别"></el-input>-->
+              <el-radio v-model="form.sex" label="男">男</el-radio>
+              <el-radio v-model="form.sex" label="女">女</el-radio>
+            </el-form-item>
+            <br>
+            <el-form-item label="地址" style="width: 500px;">
+              <el-input v-model="form.address" placeholder="请输入地址"></el-input>
+            </el-form-item>
+            <br>
+            <el-form-item label="电话" style="width: 500px;">
+              <el-input v-model="form.phone" placeholder="请输入电话"></el-input>
+            </el-form-item>
+          </el-form>
+        </div>
+        <div style="text-align: center">
+          <el-button type="primary"  @click="addAdmin">提交</el-button>
+          <!--      <el-button type="danger">取消</el-button>-->
+        </div>
+
+
+      </el-dialog>
+    </div>
+  </template>
+
 <script>
 
 
@@ -62,7 +100,17 @@ export default {
         size: 10,
         name: '',
         phone: ''
-      }
+      },
+      form: {
+        name: '',
+        age: '',
+        sex: '',
+        address: '',
+        phone: ''
+      },
+      radio: '男',
+
+      addAdminLog: false,
     }
   },
   created() {
@@ -108,6 +156,17 @@ export default {
           this.load()
         }
         else {
+          this.$notify.error(res.msg);
+        }
+      })
+    },
+    addAdmin(){
+      request.post("/user/addAdmin",this.form).then(res => {
+        if(res.code === "success"){
+          this.$notify.success('新增成功')
+          this.form={}
+        }
+        else{
           this.$notify.error(res.msg);
         }
       })

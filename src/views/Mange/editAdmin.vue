@@ -24,7 +24,7 @@
       </el-form>
     </div>
     <div style="text-align: center">
-      <el-button type="primary" @click="addAdmin" >提交</el-button>
+      <el-button type="primary" @click="updateAdmin" >提交</el-button>
       <!--      <el-button type="danger">取消</el-button>-->
     </div>
   </div>
@@ -66,7 +66,7 @@ export default {
   },
   methods: {
 
-    addAdmin(){
+    updateAdmin(){
       request.put("/user/updateAdmin",this.form).then(res => {
         if(res.code === "success"){
           this.$notify.success('更新成功')

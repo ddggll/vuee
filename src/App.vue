@@ -16,7 +16,7 @@
       <!--侧边栏导航-->
       <div style="width: 200px;min-height: calc(100vh - 62px); overflow: hidden;margin-right: 2px;background-color: #42b983">
         <el-menu :default-active="$route.path === '/'?$route.path :$route.path.substring()" :active-openeds="['about']" router class="el-menu-demo">
-          <el-menu-item index="/">
+          <el-menu-item index="/test">
             <i class="el-icon-s-cooperation"></i>
             <span>处理中心</span>
           </el-menu-item>
