@@ -119,6 +119,15 @@ import router from '@/router'
 export default {
   name: 'test',
   data() {
+    const checkAge = (rule, value, callback) => {
+      if (!value) {
+        return callback(new Error('年龄不能为空'));
+      }if (!/^[0-9]+$/.test(value)) {
+        callback(new Error('请输入数字值'));
+      }
+      callback()
+
+    };
     return {
       tableData: [],
       total: 0,
@@ -142,7 +151,7 @@ export default {
         ],
         age: [
           {required: true,message:'请输入年龄',trigger:'blur'},
-          {type: 'number',message:'年龄必须为数字',trigger: 'blur'}
+          {validator:checkAge,trigger: 'blur'}
         ],
         address: [
           {required: true,message:'请输入地址',trigger:'blur'}
@@ -205,27 +214,39 @@ export default {
       })
     },
     addAdmin(){
-      request.post("/user/addAdmin",this.form).then(res => {
-        if(res.code === "success"){
-          this.$notify.success('新增成功')
-          this.refresh()
-        }
-        else{
-          this.$notify.error(res.msg);
+      this.$refs["form"].validate((valid) => {
+        if(valid)
+        {
+          request.post("/user/addAdmin",this.form).then(res => {
+            if(res.code === "success"){
+              this.$notify.success('新增成功')
+              this.refresh()
+            }
+            else{
+              this.$notify.error(res.msg);
+            }
+          })
         }
       })
+
     },
     updateAdmin(){
-      request.put("/user/updateAdmin",this.form).then(res => {
-        if(res.code === "success"){
-          this.$notify.success('更新成功')
-          this.editAdminLog=false
-          this.refresh()
-        }
-        else{
-          this.$notify.error(res.msg);
+      this.$refs["form"].validate((valid)=>{
+        if(valid)
+        {
+          request.put("/user/updateAdmin",this.form).then(res => {
+            if(res.code === "success"){
+              this.$notify.success('更新成功')
+              this.editAdminLog=false
+              this.refresh()
+            }
+            else{
+              this.$notify.error(res.msg);
+            }
+          })
         }
       })
+
     },
     pushId(low){
       this.editAdminLog=true
