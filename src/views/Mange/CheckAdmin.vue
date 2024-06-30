@@ -50,7 +50,7 @@
 <!--    添加成员弹窗-->
     <el-dialog title="添加成员" :visible.sync="addAdminLog" width="50%" center>
       <div style="padding: 20px ;margin: 20px;width: 400px" class="form-area">
-        <el-form  label-position="" rules="rules" label-width="80px" :model="form" inline="true" style="width: 600px;margin-left:auto;">
+        <el-form  label-position="" :rules="rules" ref="form" label-width="80px" :model="form" inline="true" style="width: 600px;margin-left:auto;">
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
@@ -62,7 +62,7 @@
             <el-radio v-model="form.sex" label="女">女</el-radio>
           </el-form-item>
         </el-form>
-        <el-form  label-position="left" rules="rules" label-width="80px" :model="form" style="width: 510px;margin-left:40px;">
+        <el-form  label-position="left" :rules="rules" ref="form" label-width="80px" :model="form" style="width: 510px;margin-left:40px;">
           <el-form-item label="地址" prop="address">
             <el-input v-model="form.address" placeholder="请输入地址"></el-input>
           </el-form-item>
@@ -81,7 +81,7 @@
     <div>
       <el-dialog title="修改信息" :visible.sync="editAdminLog" width="50%" center>
       <div style="padding: 20px ;margin: 20px;width: 400px" class="form-area">
-        <el-form  label-position="" rules="rules" label-width="80px" :model="form" inline="true" style="width: 600px;margin-left:auto;">
+        <el-form  label-position="" :rules="rules" ref="form" label-width="80px" :model="form" inline="true" style="width: 600px;margin-left:auto;">
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
@@ -93,7 +93,7 @@
             <el-radio v-model="form.sex" label="女">女</el-radio>
           </el-form-item>
         </el-form>
-        <el-form  label-position="left" rules="rules" label-width="80px" :model="form" style="width: 510px;margin-left:40px;">
+        <el-form  label-position="left" :rules="rules" ref="form" label-width="80px" :model="form" style="width: 510px;margin-left:40px;">
           <el-form-item label="地址" prop="address">
             <el-input v-model="form.address" placeholder="请输入地址"></el-input>
           </el-form-item>
@@ -131,7 +131,7 @@ export default {
       form: {
         name: '',
         age: '',
-        sex: '',
+        sex: '男',
         address: '',
         phone: ''
       },
