@@ -1,0 +1,8 @@
+        名称       类型
+         id       Integer
+姓名      name     String
+性别      sex      String
+年龄      age      Integer
+学号      studentId  String
+手机号     phone    String
+
