@@ -36,7 +36,7 @@
               <span>成员管理</span>
             </template>
             <el-menu-item index="/checkAdmin">成员查看</el-menu-item>
-            <el-menu-item index="/addAdmin">成员添加</el-menu-item>
+<!--            <el-menu-item index="/addAdmin">成员添加</el-menu-item>-->
 <!--            <el-menu-item index="/test">成员删除</el-menu-item>-->
           </el-submenu>
         </el-menu>
