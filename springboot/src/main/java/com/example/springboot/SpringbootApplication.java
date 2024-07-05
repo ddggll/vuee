@@ -16,7 +16,7 @@ public class SpringbootApplication {
 
     @GetMapping
     public String health(){
-        return "OK";
+        return "OK nihao";
     }
 
 
