@@ -24,8 +24,7 @@
       <el-table-column label="操作">
         <template v-slot:default="scope">
           <!--         scope.row是行数据-->
-          <UpdateAdminShow ref="UpdateAdminShow"></UpdateAdminShow>
-
+          <UpdateAdminShow @sendSuccess="SuccessUpdateAdminShow" ref="UpdateAdminShow"></UpdateAdminShow>
           <el-button type="primary" @click="OpenUpdateAdminShow(scope.row.id)">编辑</el-button>
           <el-popconfirm
               title="这是一段内容确定删除吗？"
@@ -48,7 +47,7 @@
           @current-change="handleCurrentChange"
           :total="total">
       </el-pagination>
-      <UpdateAdminShow v-on:sendsuccess="SuccessUpdateAdminShow"></UpdateAdminShow>
+
     </div>
 
 
@@ -261,7 +260,6 @@ export default {
     },
     SuccessUpdateAdminShow(){
       this.load();
-      console.log("123");
     }
 
   }
