@@ -97,7 +97,7 @@ export default {
       this.editAdminLog=true
       request.get("/user/" +ID ).then(res => {
         this.form = res.data;
-        this.editAdminLog=true;
+        //this.editAdminLog=true;
       })
     },
     OpenUpdateAdminShow(ID){

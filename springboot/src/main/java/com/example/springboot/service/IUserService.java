@@ -14,8 +14,6 @@ public interface IUserService {
 
     PageInfo<user> page(UserPageRequest userPageRequest);
 
-
-
     void addAdmin(user user);
 
     user getById(Integer id);
