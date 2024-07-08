@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <!--    搜索表单-->
@@ -15,17 +16,20 @@
       </el-button>
     </div>
     <el-table :data="tableData" stripe>
-      <el-table-column prop="id" label="编号"></el-table-column>
-      <el-table-column prop="name" label="姓名"></el-table-column>
-      <el-table-column prop="age" label="年龄"></el-table-column>
+      <el-table-column prop="id" label="编号" width="50px"></el-table-column>
+      <el-table-column prop="name" label="姓名" width="80px"></el-table-column>
       <el-table-column prop="sex" label="性别"></el-table-column>
-      <el-table-column prop="address" label="地址"></el-table-column>
       <el-table-column prop="phone" label="电话"></el-table-column>
+      <el-table-column prop="studentId" label="学号"></el-table-column>
+      <el-table-column prop="academy" label="院系"></el-table-column>
+      <el-table-column prop="major" label="专业"></el-table-column>
+      <el-table-column prop="department" label="部门"></el-table-column>
+      <el-table-column prop="cardNumber" label="银行卡号"></el-table-column>
       <el-table-column label="操作">
         <template v-slot:default="scope">
           <!--         scope.row是行数据-->
           <UpdateAdminShow @sendSuccess="SuccessUpdateAdminShow" ref="UpdateAdminShow"></UpdateAdminShow>
-          <el-button type="primary" @click="OpenUpdateAdminShow(scope.row.id)">编辑</el-button>
+          <el-button type="primary" @click="OpenUpdateAdminShow(scope.row.id)">编辑1</el-button>
           <el-popconfirm
               title="这是一段内容确定删除吗？"
               @confirm="del(scope.row.id)"
@@ -51,21 +55,27 @@
     </div>
   </div>
 
-  </template>
+</template>
+
+<style scoped lang="scss">
+
+</style>
 
 <script>
 
-
 import request from "@/utils/requeset";
 import router from '@/router';
-import AddAdminShow from "@/views/Mange/AddAdmin.vue";
 import UpdateAdminShow from "@/views/Mange/UpdateAdmin.vue";
+import AddAdminShow from "@/views/Mange/AddAdmin.vue";
+
+
 export default {
-  name: 'test',
-  components: { AddAdminShow ,
-  UpdateAdminShow,
+  name:'test',
+  components: {
+    AddAdminShow,
+    UpdateAdminShow,
   },
-  data() {
+  data(){
 
     const checkAge = (rule, value, callback) => {
       if (!value) {
@@ -77,37 +87,36 @@ export default {
 
     };
     return {
-      flag:true,
+      flag: true,
       tableData: [],
       total: 0,
+      form: {
+        name: '',
+        sex: '',
+        studentId: '',
+        academy: '',
+        major: '',
+        phone: '',
+        department: '',
+        carNumber: '',
+        qq: '',
+        weiXin: '',
+        email: ''
+
+      },
       params: {
         page: 1,
         size: 10,
         name: '',
-        phone: ''
+        studentId: ''
       },
-      form: {
-        name: '',
-        age: '',
-        sex: '男',
-        address: '',
-        phone: ''
-      },
-
       rules: {
         name: [
-          {required :true,message:'请输入姓名',trigger:'blur'  },
-          {min:1,message: '请输入合法姓名',trigger:'blur' }
-        ],
-        age: [
-          {required: true,message:'请输入年龄',trigger:'blur'},
-          {validator:checkAge,trigger: 'blur'}
-        ],
-        address: [
-          {required: true,message:'请输入地址',trigger:'blur'}
+          {required: true, message: '请输入姓名', trigger: 'blur'},
+          {min: 1, message: '请输入合法姓名', trigger: 'blur'}
         ],
         phone: [
-          {required: true,message:'请输入电话号码',trigger: 'blur'},
+          {required: true, message: '请输入电话号码', trigger: 'blur'},
           {pattern: /^1[3456789]\d{9}$/, message: '手机号码格式不正确', trigger: 'blur'}
         ]
       },
@@ -117,18 +126,19 @@ export default {
     }
   },
   created() {
+
     this.load()
+
   },
-  methods: {
-    sendId(id){
-      router.push(`/editAdmin/?id=${id}`)
-    },
+  methods:{
+
+
     load() {
       // fetch('http://localhost:9090/user/list').then(res => res.json()).then(res=> {
       //   console.log(res)
       //   this.tableData=res
       // })
-      request.get('/user/page', {
+      request.get('/admin/page', {
         params: this.params
       }).then(res => {
         if (res.code === "success") {
@@ -139,41 +149,41 @@ export default {
 
       })
     },
-    reset() {
-      this.params = {
-        page: 1,
-        size: 10,
-        name: '',
-        phone: ''
-      }
-      this.load()
-    },
-    handleCurrentChange(page) {
-      //点击分页按钮触发
-      this.params.page = page;
-      this.load()
-    },
-    del(id){
-      request.delete("user/deleteAdmin/" + id).then(res => {
-        if (res.code === "success") {
-          this.$notify.success("删除成功");
-          this.load()
-        }
-        else {
-          this.$notify.error(res.msg);
-        }
-      })
-    },
-    OpenAddAdminShow(){
-      this.$refs.AddAdminShow.Opentan();
-    },
-    OpenUpdateAdminShow(ID){
-      this.$refs.UpdateAdminShow.OpenUpdateAdminShow(ID);
-    },
-    SuccessUpdateAdminShow(){
-      this.load();
+  reset(){
+    this.params = {
+      page: 1,
+      size: 10,
+      name:'',
+      studentId: ''
     }
-
-  }
+  },
+  handleCurrentChange(page) {
+    //点击分页按钮触发
+    this.params.page = page;
+    this.load()
+  },
+  del(id){
+    request.delete("user/deleteAdmin/" + id).then(res => {
+      if (res.code === "success") {
+        this.$notify.success("删除成功");
+        this.load()
+      }
+      else {
+        this.$notify.error(res.msg);
+      }
+    })
+  },
+  OpenAddAdminShow(){
+    this.$refs.AddAdminShow.Opentan();
+  },
+  SuccessUpdateAdminShow(){
+    this.load();
+  },
+  OpenUpdateAdminShow(ID){
+    this.$refs.UpdateAdminShow.OpenUpdateAdminShow(ID);
+  },
 }
+}
+
+
 </script>

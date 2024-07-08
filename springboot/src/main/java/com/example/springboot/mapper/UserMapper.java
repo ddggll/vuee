@@ -1,8 +1,7 @@
 package com.example.springboot.mapper;
 
-import com.example.springboot.controller.request.UserPageRequest;
+import com.example.springboot.controller.request.AdminPageRequest;
 import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Select;
 import com.example.springboot.entity.user;
 
 import java.util.List;
@@ -14,7 +13,7 @@ public interface UserMapper {
     List<user> list();
 
 
-    List<user> listByCondition(UserPageRequest userPageRequest);
+    List<user> listByCondition(AdminPageRequest adminPageRequest);
 
     void addAdmin(user user);
 

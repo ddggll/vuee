@@ -91,9 +91,6 @@ export default {
     this.load()
   },
   methods: {
-    sendId(id){
-      router.push(`/editAdmin/?id=${id}`)
-    },
     load() {
       // fetch('http://localhost:9090/user/list').then(res => res.json()).then(res=> {
       //   console.log(res)
@@ -130,9 +127,8 @@ export default {
       location.reload();
     },
     Opentan(){
-      console.log('调用子组件方法');
+      // console.log('调用子组件方法');
       this.addAdminLog=true;
-
 
     }
   }

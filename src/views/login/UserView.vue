@@ -71,6 +71,12 @@ export default {
           return false;
         }
       });
+    },
+    handleClose() {
+      // 实现关闭的逻辑
+      console.log('Closing...');
+      // 可能需要通知父组件或其他组件
+      this.$emit('close');
     }
   }
 }

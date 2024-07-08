@@ -1,7 +1,7 @@
 package com.example.springboot.controller;
 
 import com.example.springboot.common.Result;
-import com.example.springboot.controller.request.UserPageRequest;
+import com.example.springboot.controller.request.AdminPageRequest;
 import com.example.springboot.entity.user;
 import com.example.springboot.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @GetMapping("/page")
-    public Result page(UserPageRequest userPageRequest){
-        return Result.success(userService.page(userPageRequest));
+    public Result page(AdminPageRequest adminPageRequest){
+        return Result.success(userService.page(adminPageRequest));
     }
 }
