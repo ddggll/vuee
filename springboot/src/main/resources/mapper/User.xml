@@ -30,7 +30,7 @@
         select * from user where id = #{id}
     </select>
     
-    <update id="updateAdmin">
+    <update id= "updateAdmin" >
         update user set name = #{name},age = #{age},sex = #{sex},address = #{address},phone = #{phone} where id = #{id}
     </update>
 

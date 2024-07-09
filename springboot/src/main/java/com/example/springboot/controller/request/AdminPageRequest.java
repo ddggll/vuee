@@ -8,5 +8,6 @@ import lombok.Data;
 @Data
 public class AdminPageRequest extends BaseRequest {
     private String name;
+    private String studentId;
     private String phone;
 }

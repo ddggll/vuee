@@ -3,6 +3,9 @@ package com.example.springboot.controller.request;
 
 import lombok.Data;
 
+/**
+ * @author 22457
+ */
 @Data
 public class UserPageRequest extends BaseRequest{
     private String name ;

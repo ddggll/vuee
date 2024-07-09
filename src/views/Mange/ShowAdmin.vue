@@ -1,9 +1,9 @@
 
 <template>
   <div>
-    <el-dialog title="修改信息" :visible.sync="editAdminLog" width="50%" center>
+    <el-dialog title="信息" :visible.sync="ShowAdminLog" width="50%" center>
       <div style="padding: 20px ;margin: 20px;width: 400px" class="form-area">
-        <el-form  label-position="" :rules="rules" ref="form" label-width="80px" :model="form" :inline="flag" style="width: 600px;margin-left:auto;">
+        <el-form  label-position=""  ref="form" label-width="80px" :model="form" :inline="flag" style="width: 600px;margin-left:auto;">
           <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
@@ -12,7 +12,7 @@
             <el-radio v-model="form.sex" label="女">女</el-radio>
           </el-form-item>
         </el-form>
-        <el-form  label-position="left" :rules="rules" ref="form" label-width="80px" :model="form" style="width: 510px;margin-left:40px;">
+        <el-form  label-position="left"  ref="form" label-width="80px" :model="form" style="width: 510px;margin-left:40px;">
           <el-form-item label="学号" prop="studentId">
             <el-input v-model="form.studentId" placeholder="请输入学号"></el-input>
           </el-form-item>
@@ -42,10 +42,6 @@
           </el-form-item>
         </el-form>
       </div>
-      <div style="text-align: center">
-        <el-button type="primary" @click="updateAdmin" >提交</el-button>
-        <!--      <el-button type="danger">取消</el-button>-->
-      </div>
     </el-dialog>
   </div>
 </template>
@@ -54,23 +50,10 @@
 
 </style>
 <script>
-import AddAdminShow from "@/views/Mange/AddAdmin.vue";
-import router from "@/router";
 import request from "@/utils/requeset";
 
 export default {
-  name: 'test',
   data() {
-
-    const checkAge = (rule, value, callback) => {
-      if (!value) {
-        return callback(new Error('年龄不能为空'));
-      }if (!/^[0-9]+$/.test(value)) {
-        callback(new Error('请输入数字值'));
-      }
-      callback()
-
-    };
     return {
       flag:true,
       tableData: [],
@@ -95,75 +78,21 @@ export default {
         email: ''
 
       },
-      rules: {
-        name: [
-          {required :true,message:'请输入姓名',trigger:'blur'  },
-          {min:1,message: '请输入合法姓名',trigger:'blur' }
-        ],
-        age: [
-          {required: true,message:'请输入年龄',trigger:'blur'},
-          {validator:checkAge,trigger: 'blur'}
-        ],
-        address: [
-          {required: true,message:'请输入地址',trigger:'blur'}
-        ],
-        phone: [
-          {required: true,message:'请输入电话号码',trigger: 'blur'},
-          {pattern: /^1[3456789]\d{9}$/, message: '手机号码格式不正确', trigger: 'blur'}
-        ]
-      },
-      radio: '男',
-      editAdminLog: false,
-      addAdminLog: false,
+      ShowAdminLog: false
     }
   },
-  created() {
-    this.load()
-  },
-  methods: {
-    load() {
-      // fetch('http://localhost:9090/user/list').then(res => res.json()).then(res=> {
-      //   console.log(res)
-      //   this.tableData=res
-      // })
-      request.get('/admin/page', {
-        params: this.params
-      }).then(res => {
-
-        if (res.code === "success") {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        }
-      })
-    },
-    updateAdmin(){
-      this.$refs["form"].validate((valid)=>{
-        if(valid)
-        {
-          request.put("/admin/updateAdmin",this.form).then(res => {
-            if(res.code === "success"){
-              this.$notify.success('更新成功')
-              this.editAdminLog=false
-              this.$emit('sendSuccess');
-              // this.refresh()
-            }
-            else{
-              this.$notify.error(res.msg);
-            }
-          })
-        }
-      })
-
-    },
+  methods:{
     pushId(ID){
-      this.editAdminLog=true
+      this.ShowAdminLog=true
       request.get("/admin/" +ID ).then(res => {
         this.form = res.data;
         //this.editAdminLog=true;
       })
     },
-    OpenUpdateAdminShow(ID){
+    OpenShowAdminShow(ID){
       this.pushId(ID);
     }
   }
-}</script>
+}
+
+</script>

@@ -31,4 +31,24 @@ public class AdminService implements IAdminService {
         List<Admin> admins = adminMapper.listByCondition(adminPageRequest);
         return new PageInfo<>(admins);
     }
+
+    @Override
+    public void addAdmin(Admin admin) {
+        adminMapper.addAdmin(admin);
+    }
+
+    @Override
+    public void deleteAdmin(Integer id) {
+        adminMapper.deleteAdmin(id);
+    }
+
+    @Override
+    public Admin getById(Integer id) {
+        return adminMapper.getById(id);
+    }
+
+    @Override
+    public void updateAdmin(Admin admin) {
+        adminMapper.updateAdmin(admin);
+    }
 }

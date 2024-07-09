@@ -2,7 +2,7 @@ package com.example.springboot.service;
 
 import com.example.springboot.controller.request.AdminPageRequest;
 import com.example.springboot.entity.Admin;
-import com.example.springboot.entity.user;
+
 import com.github.pagehelper.PageInfo;
 
 import java.util.List;
@@ -13,6 +13,14 @@ import java.util.List;
 public interface IAdminService {
 
     List<Admin> listAdmin();
+
     PageInfo<Admin> page(AdminPageRequest adminPageRequest);
 
+    void addAdmin(Admin admin);
+
+    void deleteAdmin(Integer id);
+
+    Admin getById(Integer id);
+
+    void updateAdmin(Admin admin);
 }
