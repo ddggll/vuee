@@ -3,21 +3,21 @@
     <el-form ref="loginForm" :model="form" :rules="rules" label-width="8epx" class="login-box">
       <h3 class="login-title">管理员登录</h3>
 
-      <el-form-item label="账号" prop="username">
-        <el-input type="text" placeholder="请输入账号" v-model="form.username"/>
+      <el-form-item label="账号" prop="studentId">
+        <el-input type="text" placeholder="请输入账号" v-model="form.studentId"/>
       </el-form-item>
 
       <el-form-item label="密码" prop="password">
-        <el-input type="password" placeholder="请输入密码" v-model="form.password"/>
+        <el-input type="password" show-password placeholder="请输入密码" v-model="form.password"/>
       </el-form-item>
 
       <el-form-item>
-        <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
+        <el-button type="primary" @click="login">登录</el-button>
         <el-form>
-          <router-link to="/">
+          <router-link to="/user">
             <el-radio v-model="radio" label="1">用户</el-radio>
           </router-link>
-          <router-link to="about">
+          <router-link to="/admin">
             <el-radio v-model="radio" label="2">管理员</el-radio>
           </router-link>
         </el-form>
@@ -40,18 +40,21 @@
 
 <script>
 
+import request from "@/utils/requeset";
+
 export default {
   name: 'AboutView',
   data() {
     return {
       radio: '2',
       form: {
-        username: '',
-        password: ''
+        name: '',
+        password: '',
+        studentId:''
       },
       //表单验证，需要在el-form-item元素中增加 prop 属性
       rules: {
-        username: [
+        studentId: [
           {required: true, message: '账号不可为空', trigger: 'blur'}
         ],
         password: [
@@ -63,19 +66,21 @@ export default {
     }
   },
   methods: {
-    onSubmit(formName) {
-      //为表单绑定验证功能
-      this.$refs[formName].validate((valid) => {
+    login(){
+      this.$refs["loginForm"].validate((valid) => {
         if (valid) {
-          //使用vue-router路由到指定页面，该方式称之为编程式导航
-          this.$router.push("/main");
-        } else {
-          this.dialogVisible = true;
-          return false;
+          request.post('admin/login', this.form).then((res) => {
+            if (res.code === "success") {
+              this.$notify.success("登录成功")
+              this.$router.push('/layout')
+            } else {
+              this.$notify.error(res.msg);
+            }
+          })
         }
-      });
+    })
     },
-    handleClose() {
+    handleClose(){
       // 实现关闭的逻辑
       console.log('Closing...');
       // 可能需要通知父组件或其他组件

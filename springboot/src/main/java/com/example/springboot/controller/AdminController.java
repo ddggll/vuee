@@ -2,8 +2,8 @@ package com.example.springboot.controller;
 
 import com.example.springboot.common.Result;
 import com.example.springboot.controller.request.AdminPageRequest;
+import com.example.springboot.controller.request.LoginRequest;
 import com.example.springboot.entity.Admin;
-import com.example.springboot.entity.user;
 import com.example.springboot.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -55,6 +55,11 @@ public class AdminController {
     public Result updateAdmin(@RequestBody Admin admin){
         adminService.updateAdmin(admin);
         return Result.success();
+    }
+
+    @PostMapping("/login")
+    public Result login(@RequestBody LoginRequest request){
+        return Result.success(adminService.login(request));
     }
 
 }

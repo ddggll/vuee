@@ -37,5 +37,9 @@
         update admin set name = #{name}, sex = #{sex}, studentId = #{studentId}, academy = #{academy}, major = #{major}, phone = #{phone}, department = #{department},cardNumber =#{cardNumber}, qq= #{qq}, weiXin =#{weiXin}, email =#{email} where id = #{id}
     </update>
 
+    <select id="getByNameAndPassword" resultType="com.example.springboot.entity.Admin">
+        select * from admin where studentId = #{studentId} and password = #{password}
+    </select>
+
 
 </mapper>

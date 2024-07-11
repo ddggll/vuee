@@ -11,10 +11,10 @@
       <el-form-item>
         <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
         <el-form>
-          <router-link to="/">
+          <router-link to="/user">
             <el-radio v-model="radio" label="1">用户</el-radio>
           </router-link>
-          <router-link to="about">
+          <router-link to="/admin">
             <el-radio v-model="radio" label="2">管理员</el-radio>
           </router-link>
         </el-form>

@@ -1,39 +1,45 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import HomeView from '../views/login/UserView.vue'
-import AdminView from "@/views/login/AdminView.vue";
+import login from '../views/login/login.vue'
+import layout from '../views/layout/layout.vue'
+
 
 Vue.use(VueRouter)
 
+
+//=====管理页=======
 const routes = [
   {
     path: '/',
-    name: 'home',
-    component: HomeView
+    name: 'login',
+    component: login,
+    redirect: 'user',
+    children: [
+      {
+        path: 'user',
+        name: 'user',
+        component: () => import('../views/login/UserLogin.vue')
+      },
+      {
+        path: 'admin',
+        name: 'admin',
+        component: () => import('../views/login/AdminLogin.vue')
+      }
+    ]
   },
   {
-    path: '/about',
-    name: 'about',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: () => import(/* webpackChunkName: "about" */ '../views/login/AdminView.vue')
-  },
+    path:'/layout',
+    name:'layout',
+    component: layout,
+    redirect:'/checkAdmin',
+    children:[
+      {
+        path: '/checkAdmin',
+        name: 'checkAdmin1',
+        component: () => import('../views/Mange/CheckAdmin.vue')
+      }
 
-  {
-    path: '/admin',
-    name: 'admin',
-    component: () => import('../views/login/AdminView.vue')
-  },
-  {
-    path: '/user',
-    name: 'user',
-    component: () => import('../views/login/UserView.vue')
-  },
-  {
-    path: '/checkAdmin',
-    name: 'checkAdmin1',
-    component: () => import('../views/Mange/CheckAdmin.vue')
+    ]
   }
 ]
 

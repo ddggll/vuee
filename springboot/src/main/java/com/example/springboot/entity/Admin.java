@@ -25,4 +25,5 @@ public class Admin {
     private String cardNumber;
     private String qq;
     private String weiXin;
+    private String password;
 }

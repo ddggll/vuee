@@ -22,7 +22,7 @@ public class Result {
         result.setData(data);
         return result;
     }
-    public static Result fail(String msg) {
+    public static Result error(String msg) {
         Result result = new Result();
         result.setCode(FAIL);
         result.setMsg(msg);
