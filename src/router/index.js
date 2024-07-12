@@ -36,7 +36,12 @@ const routes = [
       {
         path: '/checkAdmin',
         name: 'checkAdmin1',
-        component: () => import('../views/Mange/CheckAdmin.vue')
+        component: () => import('@/views/superMange/CheckAdmin.vue')
+      },
+      {
+        path: '/application',
+        name: 'application',
+        component: () => import('@/views/mange/application.vue')
       }
 
     ]

@@ -54,7 +54,7 @@
 
 </style>
 <script>
-import AddAdminShow from "@/views/Mange/AddAdmin.vue";
+import AddAdminShow from "@/views/superMange/AddAdmin.vue";
 import router from "@/router";
 import request from "@/utils/requeset";
 
@@ -118,24 +118,9 @@ export default {
     }
   },
   created() {
-    this.load()
+
   },
   methods: {
-    load() {
-      // fetch('http://localhost:9090/user/list').then(res => res.json()).then(res=> {
-      //   console.log(res)
-      //   this.tableData=res
-      // })
-      request.get('/admin/page', {
-        params: this.params
-      }).then(res => {
-
-        if (res.code === "success") {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        }
-      })
-    },
     updateAdmin(){
       this.$refs["form"].validate((valid)=>{
         if(valid)

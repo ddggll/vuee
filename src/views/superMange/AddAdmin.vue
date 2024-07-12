@@ -76,7 +76,7 @@ export default {
         page: 1,
         size: 10,
         name: '',
-        phone: ''
+       studentId:''
       },
       form: {
         name: '',
@@ -121,24 +121,10 @@ export default {
     }
   },
   created() {
-    this.load()
+
   },
   methods: {
-    load() {
-      // fetch('http://localhost:9090/user/list').then(res => res.json()).then(res=> {
-      //   console.log(res)
-      //   this.tableData=res
-      // })
-      request.get('/user/page', {
-        params: this.params
-      }).then(res => {
 
-        if (res.code === "success") {
-          this.tableData = res.data.list
-          this.total = res.data.total
-        }
-      })
-    },
     addAdmin(){
       this.$refs["form"].validate((valid) => {
         if(valid)

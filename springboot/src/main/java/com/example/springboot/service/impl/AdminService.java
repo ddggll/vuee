@@ -31,6 +31,7 @@ public class AdminService implements IAdminService {
 
     @Override
     public PageInfo<Admin> page(AdminPageRequest adminPageRequest) {
+        System.out.println(adminPageRequest);
         PageHelper.startPage(adminPageRequest.getPage(), adminPageRequest.getSize());
         List<Admin> admins = adminMapper.listByCondition(adminPageRequest);
         return new PageInfo<>(admins);

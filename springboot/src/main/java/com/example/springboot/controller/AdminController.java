@@ -24,7 +24,7 @@ public class AdminController {
 
     @GetMapping("/adminList")
     public Result listAdmin() {
-        List<Admin>admins = adminService.listAdmin();
+        List<Admin> admins = adminService.listAdmin();
         return Result.success(admins);
     }
 

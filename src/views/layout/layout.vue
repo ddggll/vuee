@@ -16,7 +16,7 @@
       <!--侧边栏导航-->
       <div style="width: 200px;min-height: calc(100vh - 62px); overflow: hidden;margin-right: 2px;background-color: #42b983">
         <el-menu :default-active="$route.path === '/'?$route.path :$route.path.substring()" :active-openeds="['about']" router class="el-menu-demo">
-          <el-menu-item index="/test">
+          <el-menu-item index="/application">
             <i class="el-icon-s-cooperation"></i>
             <span>处理中心</span>
           </el-menu-item>
@@ -26,9 +26,7 @@
               <span>我的工作台</span>
 
             </template>
-            <el-menu-item index="/user">用户登录</el-menu-item>
-            <el-menu-item index="/admin">管理员登录</el-menu-item>
-
+            <el-menu-item index="/application">处理预约</el-menu-item>
           </el-submenu>
           <el-submenu index="3">
             <template slot="title">

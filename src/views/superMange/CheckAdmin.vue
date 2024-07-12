@@ -71,9 +71,9 @@
 
 import request from "@/utils/requeset";
 
-import UpdateAdminShow from "@/views/Mange/UpdateAdmin.vue";
-import AddAdminShow from "@/views/Mange/AddAdmin.vue";
-import ShowAdmin from "@/views/Mange/ShowAdmin.vue";
+import UpdateAdminShow from "@/views/superMange/UpdateAdmin.vue";
+import AddAdminShow from "@/views/superMange/AddAdmin.vue";
+import ShowAdmin from "@/views/superMange/ShowAdmin.vue";
 
 
 export default {
@@ -89,20 +89,6 @@ export default {
       flag: true,
       tableData: [],
       total: 0,
-      form: {
-        name: '',
-        sex: '',
-        studentId: '',
-        academy: '',
-        major: '',
-        phone: '',
-        department: '',
-        cardNumber: '',
-        qq: '',
-        weiXin: '',
-        email: ''
-
-      },
       params: {
         page: 1,
         size: 10,
