@@ -10,4 +10,9 @@ import java.util.List;
 @Mapper
 public interface ApplicationMapper {
     List<Application> listByCondition(ApplicationPageRequest applicationPageRequest);
+
+    Application getById(Integer id);
+
+
+    void handleApplication(Application application);
 }

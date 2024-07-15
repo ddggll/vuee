@@ -25,6 +25,15 @@ public class ApplicationService implements IApplicationService {
         PageHelper.startPage(applicationPageRequest.getPage(), applicationPageRequest.getSize());
         List<Application> applications = applicationMapper.listByCondition(applicationPageRequest);
         return new PageInfo<>(applications);
+    }
 
+    @Override
+    public Application getById(Integer id){
+        return applicationMapper.getById(id);
+    }
+
+    @Override
+    public void handleApplication(Application application) {
+        applicationMapper.handleApplication(application);
     }
 }

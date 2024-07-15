@@ -147,7 +147,7 @@ export default {
       location.reload();
     },
     Opentan(){
-      // console.log('调用子组件方法');
+
       this.addAdminLog=true;
 
     }

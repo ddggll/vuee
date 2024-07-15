@@ -12,5 +12,4 @@ import lombok.EqualsAndHashCode;
 public class UserPageRequest extends BaseRequest{
     private String name ;
     private String phone;
-
 }

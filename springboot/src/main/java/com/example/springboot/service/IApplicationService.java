@@ -11,4 +11,8 @@ public interface IApplicationService {
 
     PageInfo<Application> page(ApplicationPageRequest applicationPageRequest);
 
+
+    Application getById(Integer id);
+
+    void handleApplication(Application application);
 }

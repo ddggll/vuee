@@ -42,6 +42,11 @@ const routes = [
         path: '/application',
         name: 'application',
         component: () => import('@/views/mange/application.vue')
+      },
+      {
+        path: '/applicationHandle',
+        name: 'applicationHandle',
+        component: () => import('@/views/mange/applicationHandle.vue')
       }
 
     ]

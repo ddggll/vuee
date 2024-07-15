@@ -13,14 +13,10 @@
             <i class="el-icon-refresh"></i>重置
           </el-button>
           <div>
-            <el-menu
-                :default-active="activeIndex2"
-                class="el-menu-demo"
-                mode="horizontal"
-                @select="handleSelect">
-              <el-menu-item index="1" @click="load">全部预约</el-menu-item>
-              <el-menu-item index="2" @click="handle">待处理</el-menu-item>
-              <el-menu-item index="3" @click="handled">已处理</el-menu-item>
+            <el-menu class="el-menu-demo" mode="horizontal">
+              <el-menu-item index="1" @click="set('')">全部预约</el-menu-item>
+              <el-menu-item index="2" @click="set('no')">待处理</el-menu-item>
+              <el-menu-item index="3" @click="set('yes')">已处理</el-menu-item>
             </el-menu>
           </div>
 
@@ -28,13 +24,23 @@
       </div>
       <div>
         <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="date" label="日期"></el-table-column>
+          <el-table-column prop="id" label="编号" width="50px"></el-table-column>
+          <el-table-column prop="useTime" label="日期"></el-table-column>
           <el-table-column prop="username" label="申请人"></el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
+          <el-table-column prop="number" label="人数"></el-table-column>
           <el-table-column prop="site" label="使用场地"></el-table-column>
           <el-table-column prop="teacher" label="指导老师"></el-table-column>
           <el-table-column prop="opinion" label="处理意见"></el-table-column>
-          <el-table-column label="操作"></el-table-column>
+          <el-table-column label="操作">
+            <template v-slot:default="scope">
+              <applicationHandle ref="applicationHandle" ></applicationHandle>
+              <el-button @click="handle(scope.row.id)">编辑</el-button>
+
+            </template>
+
+          </el-table-column>
+
         </el-table>
       </div>
 
@@ -51,32 +57,39 @@
 
 
 import request from "@/utils/requeset";
-import AddAdminShow from "@/views/superMange/AddAdmin.vue";
+import applicationHandle from "@/views/mange/applicationHandle.vue"
+
 
 export default {
-  components: {
-    AddAdminShow
+  computed: {
 
+  },
+  components: {
+    applicationHandle
   },
   data(){
     return{
       tableData: [],
+      handleFlag:'',
       params: {
         page: 1,
         size: 10,
         username: '',
         phone: '',
         opinion:'',
-        stata:''
+        state:'',
+        useTime:'',
+        id:''
       },
     }
   },
-  created() {
-    this.load();
+  mounted() {
+
+     //this.load();
   },
   methods:{
     load(){
-      this.params.stata='同意'
+      this.params.state = this.handleFlag
       request.get("application/page" ,{
         params:this.params}).then(res=>{
         if(res.code === "success") {
@@ -85,6 +98,10 @@ export default {
           this.total = res.data.total
         }
       })
+    },
+    set(val){
+      this.handleFlag=val
+      this.load()
     },
     reset(){
       this.params = {
@@ -95,9 +112,9 @@ export default {
         opinion:''
       }
     },
-    handleSelect(val){
-      console.log(val)
-    }
+    handle(id){
+      this.$refs.applicationHandle.handled(id)
+    },
   }
 
 }
