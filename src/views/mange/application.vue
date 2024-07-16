@@ -35,17 +35,40 @@
           <el-table-column label="操作">
             <template v-slot:default="scope">
 
-              <el-button @click="handle(scope.row.id)">编辑</el-button>
+              <el-button icon="el-icon-edit" type="primary" @click="handle(scope.row.id)"></el-button>
 
             </template>
 
           </el-table-column>
 
         </el-table>
+
+<!--        分页-->
+        <div style="margin-top: 20px ; width: 100%;display: flex;" >
+          <div style="position: relative; margin-left: 1px;">
+            <p style="font-size:10px;margin-top: 2px">共{{ tableData.length }}条</p>
+          </div>
+          <div style="width: 200px;margin-left:1020px">
+            <el-pagination
+                background
+                :current-page="params.page"
+                :page-size="params.size"
+                layout="prev, pager, next"
+                @current-change="handleCurrentChange"
+                :total="tableData.length">
+            </el-pagination>
+          </div>
+
+
+        </div>
+
+
+
+
       </div>
 
       <div>
-        <el-dialog title="西安理工大学“一站式学生社区场地使用申请表" :visible.sync="handleLog" width="60%" :before-close="handleClose" center>
+        <el-dialog title="西安理工大学“一站式学生社区场地使用申请表" :visible.sync="handleLog" width="60%" center>
           <div>
             <el-descriptions title="申请信息" :column="2" :size="'medium'" class="margin-top" border>
               <el-descriptions-item label="用户名">{{ form.username }}</el-descriptions-item>
@@ -63,7 +86,7 @@
               <el-radio-group v-model="form.opinion" size="middle" style="margin-top: 20px">
                 <el-radio v-model="form.opinion" label="通过">通过</el-radio>
                 <el-radio v-model="form.opinion" label="不通过">不通过</el-radio>
-                <el-button type="primary" @click="submit">提交</el-button>
+                <el-button type="primary" :disabled="params.state==='yes'"  @click="submit">提交</el-button>
 
               </el-radio-group>
             </div>
@@ -152,14 +175,13 @@ export default {
         opinion:''
       }
     },
-
-    handleClose(done) {
-      this.$confirm('确认关闭？')
-          .then(_ => {
-            done()
-          })
-          .catch(_ => {})
-    },
+    // handleClose(done) {
+    //   this.$confirm('确认关闭？')
+    //       .then(_ => {
+    //         done()
+    //       })
+    //       .catch(_ => {})
+    // },
     handle(id){
       request.get("/application/"+id).then(res=>{
         this.form = res.data;
@@ -177,7 +199,8 @@ export default {
         if(res.code === "success"){
           this.$notify.success('更新成功')
           this.handleLog=false
-          // this.$emit('sendSuccess');
+          this.load()
+           this.$emit('sendSuccess');
         }
         else{
           this.$notify.error(res.msg);

@@ -31,7 +31,7 @@ const routes = [
     path:'/layout',
     name:'layout',
     component: layout,
-    redirect:'/checkAdmin',
+    redirect:'/application',
     children:[
       {
         path: '/checkAdmin',

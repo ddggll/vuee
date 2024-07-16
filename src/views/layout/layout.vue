@@ -8,7 +8,8 @@
       <div style="position: absolute; right: 20px; top: 10px;">
         <el-dropdown>
           <span class="el-dropdown-link" style="cursor: pointer">
-            admin<i class="el-icon-arrow-down el-icon--right"></i>
+            {{ admin.name }}
+<!--            <i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>
@@ -27,7 +28,7 @@
     <div style="display: flex">
       <!--侧边栏导航-->
       <div style="width: 200px;min-height: calc(100vh - 62px); overflow: hidden;margin-right: 2px;background-color: #42b983">
-        <el-menu :default-active="$route.path" :active-openeds="['about']" router class="el-menu-demo">
+        <el-menu :default-active="$route.path" :active-openeds="['/application']" router class="el-menu-demo">
           <el-menu-item index="/application">
             <i class="el-icon-s-cooperation"></i>
             <span>处理中心</span>
@@ -59,5 +60,19 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script  >
+import Cookies  from "js-cookie";
+export default {
+  data(){
+    return{
+      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{}
+    }
+  },
+  methods:{
+    logout(){Cookies.remove('admin');
+      this.$router.push('/admin');
+
+    }
+  }
+}
 </script>
