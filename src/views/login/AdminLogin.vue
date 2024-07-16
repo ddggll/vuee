@@ -41,6 +41,7 @@
 <script>
 
 import request from "@/utils/requeset";
+import Cookies from "js-cookie"
 
 export default {
   name: 'AboutView',
@@ -73,6 +74,10 @@ export default {
             if (res.code === "success") {
               this.$notify.success("登录成功")
               this.$router.push('/layout')
+              if(res.data != null){
+                Cookies.set('admin', JSON.stringify(res.data))
+              }
+
             } else {
               this.$notify.error(res.msg);
             }

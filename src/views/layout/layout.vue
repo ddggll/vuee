@@ -5,6 +5,18 @@
     <div style="height: 60px;line-height: 60px;background-color: white; margin-bottom: 2px;">
       <img src="../../assets/logo.png" alt="" style="width: 40px; position: relative; top: 10px;left: 10px">
       <span style="margin-left: 20px; font-size: 24px;">一站式社区服务</span>
+      <div style="position: absolute; right: 20px; top: 10px;">
+        <el-dropdown>
+          <span class="el-dropdown-link" style="cursor: pointer">
+            admin<i class="el-icon-arrow-down el-icon--right"></i>
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <el-button type="text" @click="logout">退出</el-button>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </div>
 
 <router-link to="/">
