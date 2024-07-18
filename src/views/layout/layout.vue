@@ -27,7 +27,7 @@
     <!--侧边栏和主体-->
     <div style="display: flex">
       <!--侧边栏导航-->
-      <div style="width: 200px;min-height: calc(100vh - 62px); overflow: hidden;margin-right: 2px;background-color: #42b983">
+      <div style="width: 200px;min-height: calc(100vh - 62px); overflow :hidden;margin-right: 2px;background-color: #42b983">
         <el-menu :default-active="$route.path" :active-openeds="['/application']" router class="el-menu-demo">
           <el-menu-item index="/application">
             <i class="el-icon-s-cooperation"></i>
@@ -40,15 +40,17 @@
 
             </template>
             <el-menu-item index="/application">处理预约</el-menu-item>
+            <el-menu-item index="/messagesPush">消息推送</el-menu-item>
           </el-submenu>
-          <el-submenu index="3">
-            <template slot="title">
+
+
+          <el-submenu v-if="admin.superAdmin === 'yes'" index="3">
+            <template slot="title" disabled="admin.superAdmin === 'yes'">
               <i class="el-icon-setting"></i>
-              <span>成员管理</span>
+              <span >成员管理</span>
+<!--              {{admin.}}-->
             </template>
             <el-menu-item index="/checkAdmin">成员查看</el-menu-item>
-<!--            <el-menu-item index="/addAdmin">成员添加</el-menu-item>-->
-<!--            <el-menu-item index="/test">成员删除</el-menu-item>-->
           </el-submenu>
         </el-menu>
       </div>
@@ -65,14 +67,13 @@ import Cookies  from "js-cookie";
 export default {
   data(){
     return{
-      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{}
+      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{},
     }
   },
   methods:{
     logout(){Cookies.remove('admin');
       this.$router.push('/admin');
-
     }
-  }
+  },
 }
 </script>

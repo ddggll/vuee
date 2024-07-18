@@ -15,4 +15,6 @@ public interface IApplicationService {
     Application getById(Integer id);
 
     void handleApplication(Application application);
+
+    void deleteApplication(Integer id);
 }

@@ -1,5 +1,6 @@
 package com.example.springboot.controller.request;
 
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -8,8 +9,8 @@ import lombok.EqualsAndHashCode;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class AdminPageRequest extends BaseRequest {
-    private String name;
-    private String studentId;
-    private String superAdmin;
+public class MessagePageRequest extends BaseRequest{
+    private String headline;
+    private String type;
+    private String state;
 }

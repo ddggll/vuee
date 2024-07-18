@@ -36,4 +36,13 @@ public class ApplicationService implements IApplicationService {
     public void handleApplication(Application application) {
         applicationMapper.handleApplication(application);
     }
+
+
+    @Override
+    public void deleteApplication(Integer id) {
+        applicationMapper.deleteApplication(id);
+        if (applicationMapper.getById(id) != null) {
+            throw new ServiceException("删除失败");
+        }
+    }
 }

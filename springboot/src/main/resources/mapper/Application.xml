@@ -29,6 +29,10 @@
         where id = #{id}
     </update>
 
+    <delete id="deleteApplication">
+        delete from application where id = #{id}
+    </delete>
+
 
 
 

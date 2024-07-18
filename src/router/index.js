@@ -42,6 +42,11 @@ const routes = [
         path: '/application',
         name: 'application',
         component: () => import('@/views/mange/application.vue')
+      },
+      {
+        path: '/messagesPush',
+        name: 'messagesPush',
+        component: () => import('@/views/mange/messagesPush.vue')
       }
 
     ]
