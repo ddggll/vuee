@@ -12,4 +12,5 @@ public class LoginDTO {
     private String name;
     private String phone;
     private String department;
+    private String superAdmin;
 }

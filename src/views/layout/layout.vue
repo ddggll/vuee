@@ -41,15 +41,17 @@
             </template>
             <el-menu-item index="/application">处理预约</el-menu-item>
           </el-submenu>
+
+          <div v-if="admin.superAdmin === 'yes'">
           <el-submenu index="3">
-            <template slot="title">
+            <template slot="title" disabled="admin.superAdmin === 'yes'">
               <i class="el-icon-setting"></i>
-              <span>成员管理</span>
+              <span >成员管理</span>
+<!--              {{admin.}}-->
             </template>
             <el-menu-item index="/checkAdmin">成员查看</el-menu-item>
-<!--            <el-menu-item index="/addAdmin">成员添加</el-menu-item>-->
-<!--            <el-menu-item index="/test">成员删除</el-menu-item>-->
           </el-submenu>
+         </div>
         </el-menu>
       </div>
 
@@ -65,14 +67,13 @@ import Cookies  from "js-cookie";
 export default {
   data(){
     return{
-      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{}
+      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{},
     }
   },
   methods:{
     logout(){Cookies.remove('admin');
       this.$router.push('/admin');
-
     }
-  }
+  },
 }
 </script>

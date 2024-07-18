@@ -23,7 +23,8 @@
         </div>
       </div>
       <div>
-        <el-table :data="tableData" style="width: 100%">
+
+        <el-table :data="tableData" border style="width: 100%">
           <el-table-column prop="id" label="编号" width="50px"></el-table-column>
           <el-table-column prop="useTime" label="日期"></el-table-column>
           <el-table-column prop="username" label="申请人"></el-table-column>
@@ -34,13 +35,10 @@
           <el-table-column prop="opinion" label="处理意见"></el-table-column>
           <el-table-column label="操作">
             <template v-slot:default="scope">
-
-              <el-button icon="el-icon-edit" type="primary" @click="handle(scope.row.id)"></el-button>
-
+              <el-button v-if="scope.row.state==='yes'" icon="el-icon-star-off" type="success" @click="handle(scope.row.id)"></el-button>
+              <el-button v-if="scope.row.state==='no'"  icon="el-icon-edit" type="primary" @click="handle(scope.row.id)"></el-button>
             </template>
-
           </el-table-column>
-
         </el-table>
 
 <!--        分页-->
@@ -54,7 +52,6 @@
                 :current-page="params.page"
                 :page-size="params.size"
                 layout="prev, pager, next"
-                @current-change="handleCurrentChange"
                 :total="tableData.length">
             </el-pagination>
           </div>
@@ -82,11 +79,12 @@
               <el-descriptions-item label="指导老师">{{ form.teacher }}</el-descriptions-item>
             </el-descriptions>
             <div style="margin-top: 20px;margin-left: 500px">
-              <p>审核意见 :</p>
-              <el-radio-group v-model="form.opinion" size="middle" style="margin-top: 20px">
+              <p>审核意见 : {{form.opinion }}</p>
+
+              <el-radio-group v-model="form.opinion" size="middle" v-if="form.state==='no'" style="margin-top: 20px">
                 <el-radio v-model="form.opinion" label="通过">通过</el-radio>
                 <el-radio v-model="form.opinion" label="不通过">不通过</el-radio>
-                <el-button type="primary" :disabled="params.state==='yes'"  @click="submit">提交</el-button>
+                <el-button type="primary" v-if="form.state==='no'"   @click="submit">提交</el-button>
 
               </el-radio-group>
             </div>
@@ -156,7 +154,6 @@ export default {
       request.get("application/page" ,{
         params:this.params}).then(res=>{
         if(res.code === "success") {
-          console.log(res.data.list)
           this.tableData = res.data.list
           this.total = res.data.total
         }
@@ -174,6 +171,7 @@ export default {
         phone:'',
         opinion:''
       }
+      this.load()
     },
     // handleClose(done) {
     //   this.$confirm('确认关闭？')

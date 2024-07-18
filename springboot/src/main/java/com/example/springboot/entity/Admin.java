@@ -26,4 +26,5 @@ public class Admin {
     private String qq;
     private String weiXin;
     private String password;
+    private String superAdmin;
 }
