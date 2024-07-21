@@ -3,8 +3,8 @@
   <div>
     <el-dialog title="修改信息" :visible.sync="editAdminLog" width="50%" center>
       <div style="padding: 20px ;margin: 20px;width: 400px" class="form-area">
-        <el-form  label-position="" :rules="rules" ref="form" label-width="80px" :model="form" :inline="flag" style="width: 600px;margin-left:auto;">
-          <el-form-item label="姓名" prop="name">
+        <el-form  label-position="" :rules="rules" ref="form" label-width="100px" :model="form" :inline="flag" style="width: 510px;margin-left:40px;">
+        <el-form-item label="姓名" prop="name">
             <el-input v-model="form.name" placeholder="请输入姓名"></el-input>
           </el-form-item>
           <el-form-item  label="性别">
@@ -12,7 +12,7 @@
             <el-radio v-model="form.sex" label="女">女</el-radio>
           </el-form-item>
         </el-form>
-        <el-form  label-position="left" :rules="rules" ref="form" label-width="80px" :model="form" style="width: 510px;margin-left:40px;">
+        <el-form  label-position="" :rules="rules" ref="form" label-width="100px" :model="form" style="width: 510px;margin-left:40px;">
           <el-form-item label="学号" prop="studentId">
             <el-input v-model="form.studentId" placeholder="请输入学号"></el-input>
           </el-form-item>
@@ -39,6 +39,10 @@
           </el-form-item>
           <el-form-item label="邮箱" prop="email">
             <el-input v-model="form.email" placeholder="请输入邮箱"></el-input>
+          </el-form-item>
+          <el-form-item  label="超级管理员" v-model="radio">
+            <el-radio v-model="form.superAdmin" label='yes'>是</el-radio>
+            <el-radio v-model="form.superAdmin" label='no'>否</el-radio>
           </el-form-item>
         </el-form>
       </div>
@@ -92,7 +96,8 @@ export default {
         cardNumber: '',
         qq: '',
         weiXin: '',
-        email: ''
+        email: '',
+        superAdmin: 'no',
 
       },
       rules: {

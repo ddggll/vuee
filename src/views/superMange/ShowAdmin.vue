@@ -15,6 +15,7 @@
           <el-descriptions-item label="QQ">{{ form.qq }}</el-descriptions-item>
           <el-descriptions-item label="微信">{{ form.weiXin }}</el-descriptions-item>
           <el-descriptions-item label="邮箱">{{ form.email }}</el-descriptions-item>
+          <el-descriptions-item label="超级管理员">{{ form.superAdmin==='yes'?'是':'否' }}</el-descriptions-item>
         </el-descriptions>
       </div>
     </el-dialog>
@@ -50,7 +51,8 @@ export default {
         cardNumber: '',
         qq: '',
         weiXin: '',
-        email: ''
+        email: '',
+        superAdmin: ''
 
       },
       ShowAdminLog: false

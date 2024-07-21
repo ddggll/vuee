@@ -1,17 +1,28 @@
 <template>
   <div>
-    <div style="height: 60px;line-height: 60px;background-color: white; margin-bottom: 1px;">
+    <div class="login-title">
       <img src="../../assets/logo.png" alt="" style="width: 40px; position: relative; top: 10px;left: 10px">
       <span style="margin-left: 20px; font-size: 24px;">一站式社区服务</span>
     </div>
-    <div style="background-color: aqua ;height: calc(100vh - 70px);padding-top: 100px">
+    <div class="login-box">
       <router-view />
     </div>
   </div>
 </template>
 
 <style scoped lang="scss">
+.login-title{
+  height: 100px;
+  line-height:100px;
+  margin-bottom: 1px;
+  background-color: powderblue;
+}
+.login-box{
 
+  height: calc(100vh - 70px);
+  padding-top: 100px;
+  background-color:white;
+}
 </style>
 <script setup>
 

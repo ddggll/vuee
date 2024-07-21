@@ -5,6 +5,19 @@
     <div style="height: 60px;line-height: 60px;background-color: white; margin-bottom: 2px;">
       <img src="../../assets/logo.png" alt="" style="width: 40px; position: relative; top: 10px;left: 10px">
       <span style="margin-left: 20px; font-size: 24px;">一站式社区服务</span>
+      <div style="position: absolute; right: 20px; top: 10px;">
+        <el-dropdown>
+          <span class="el-dropdown-link" style="cursor: pointer">
+            {{ admin.name }}
+<!--            <i class="el-icon-arrow-down el-icon&#45;&#45;right"></i>-->
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>
+              <el-button type="text" @click="logout">退出</el-button>
+            </el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </div>
 
 <router-link to="/">
@@ -15,7 +28,7 @@
     <div style="display: flex">
       <!--侧边栏导航-->
       <div style="width: 200px;min-height: calc(100vh - 62px); overflow: hidden;margin-right: 2px;background-color: #42b983">
-        <el-menu :default-active="$route.path" :active-openeds="['about']" router class="el-menu-demo">
+        <el-menu :default-active="$route.path" :active-openeds="['/application']" router class="el-menu-demo">
           <el-menu-item index="/application">
             <i class="el-icon-s-cooperation"></i>
             <span>处理中心</span>
@@ -28,15 +41,17 @@
             </template>
             <el-menu-item index="/application">处理预约</el-menu-item>
           </el-submenu>
+
+          <div v-if="admin.superAdmin === 'yes'">
           <el-submenu index="3">
-            <template slot="title">
+            <template slot="title" disabled="admin.superAdmin === 'yes'">
               <i class="el-icon-setting"></i>
-              <span>成员管理</span>
+              <span >成员管理</span>
+<!--              {{admin.}}-->
             </template>
             <el-menu-item index="/checkAdmin">成员查看</el-menu-item>
-<!--            <el-menu-item index="/addAdmin">成员添加</el-menu-item>-->
-<!--            <el-menu-item index="/test">成员删除</el-menu-item>-->
           </el-submenu>
+         </div>
         </el-menu>
       </div>
 
@@ -47,5 +62,18 @@
     </div>
   </div>
 </template>
-<script setup lang="ts">
+<script  >
+import Cookies  from "js-cookie";
+export default {
+  data(){
+    return{
+      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{},
+    }
+  },
+  methods:{
+    logout(){Cookies.remove('admin');
+      this.$router.push('/admin');
+    }
+  },
+}
 </script>

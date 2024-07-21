@@ -55,9 +55,8 @@
           :page-size="params.size"
           layout="prev, pager, next"
           @current-change="handleCurrentChange"
-          :total="total">
+          :total="tableData.length">
       </el-pagination>
-
     </div>
   </div>
 
@@ -86,6 +85,7 @@ export default {
   data(){
 
     return {
+
       flag: true,
       tableData: [],
       total: 0,

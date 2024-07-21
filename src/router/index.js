@@ -31,7 +31,7 @@ const routes = [
     path:'/layout',
     name:'layout',
     component: layout,
-    redirect:'/checkAdmin',
+    redirect:'/application',
     children:[
       {
         path: '/checkAdmin',
@@ -42,11 +42,6 @@ const routes = [
         path: '/application',
         name: 'application',
         component: () => import('@/views/mange/application.vue')
-      },
-      {
-        path: '/applicationHandle',
-        name: 'applicationHandle',
-        component: () => import('@/views/mange/applicationHandle.vue')
       }
 
     ]
