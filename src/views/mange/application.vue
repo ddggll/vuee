@@ -23,8 +23,7 @@
         </div>
       </div>
       <div>
-
-        <el-table :data="tableData" stripe border style="width: 100%">
+        <el-table :data="tableData" style="width: 100%">
           <el-table-column prop="id" label="编号" width="50px"></el-table-column>
           <el-table-column prop="useTime" label="日期"></el-table-column>
           <el-table-column prop="username" label="申请人"></el-table-column>
@@ -35,26 +34,27 @@
           <el-table-column prop="opinion" label="处理意见"></el-table-column>
           <el-table-column label="操作">
             <template v-slot:default="scope">
-              <el-button v-if="scope.row.state==='yes'" size="mini" icon="el-icon-star-off" type="success" @click="handle(scope.row.id)"></el-button>
-              <el-button v-if="scope.row.state==='no'" size="mini" icon="el-icon-edit" type="primary" @click="handle(scope.row.id)"></el-button>
-              <el-popconfirm v-if="admin.superAdmin==='yes'" title="这是一段内容确定删除吗？" @confirm="del(scope.row.id)">
-                <el-button type="danger" icon="el-icon-delete" size="mini" style="margin-left: 5px" slot="reference"></el-button>
-              </el-popconfirm>
+
+              <el-button icon="el-icon-edit" type="primary" @click="handle(scope.row.id)"></el-button>
+
             </template>
+
           </el-table-column>
+
         </el-table>
 
 <!--        分页-->
         <div style="margin-top: 20px ; width: 100%;display: flex;" >
-          <div style="position: relative; margin-left: 1px;width: 100px">
-            <p style="font-size:15px;margin-top: 2px">共{{ tableData.length }}条预约</p>
+          <div style="position: relative; margin-left: 1px;">
+            <p style="font-size:10px;margin-top: 2px">共{{ tableData.length }}条</p>
           </div>
-          <div style="width: 200px;margin-left:900px">
+          <div style="width: 200px;margin-left:1020px">
             <el-pagination
                 background
                 :current-page="params.page"
                 :page-size="params.size"
                 layout="prev, pager, next"
+                @current-change="handleCurrentChange"
                 :total="tableData.length">
             </el-pagination>
           </div>
@@ -79,15 +79,14 @@
               <el-descriptions-item label="活动时间">{{ form.useTime }}</el-descriptions-item>
               <el-descriptions-item label="使用场地">{{ form.site }}</el-descriptions-item>
               <el-descriptions-item label="使用设备">{{ form.equipment }}</el-descriptions-item>
-              <el-descriptions-item datatype="text" label="指导老师">{{ form.teacher }}</el-descriptions-item>
+              <el-descriptions-item label="指导老师">{{ form.teacher }}</el-descriptions-item>
             </el-descriptions>
             <div style="margin-top: 20px;margin-left: 500px">
-              <p>审核意见 : {{form.opinion }}</p>
-
-              <el-radio-group v-model="form.opinion" size="middle" v-if="form.state==='no'" style="margin-top: 20px">
+              <p>审核意见 :</p>
+              <el-radio-group v-model="form.opinion" size="middle" style="margin-top: 20px">
                 <el-radio v-model="form.opinion" label="通过">通过</el-radio>
                 <el-radio v-model="form.opinion" label="不通过">不通过</el-radio>
-                <el-button type="primary" v-if="form.state==='no'"   @click="submit">提交</el-button>
+                <el-button type="primary" :disabled="params.state==='yes'"  @click="submit">提交</el-button>
 
               </el-radio-group>
             </div>
@@ -108,7 +107,7 @@
 
 
 import request from "@/utils/requeset";
-import Cookies  from "js-cookie";
+
 
 
 export default {
@@ -119,7 +118,6 @@ export default {
     return{
       handleLog : false,
       opinions:'',
-      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{},
       form:{
         username:'',
         phone:'',
@@ -158,6 +156,7 @@ export default {
       request.get("application/page" ,{
         params:this.params}).then(res=>{
         if(res.code === "success") {
+          console.log(res.data.list)
           this.tableData = res.data.list
           this.total = res.data.total
         }
@@ -175,17 +174,6 @@ export default {
         phone:'',
         opinion:''
       }
-      this.load()
-    },
-    del(id){
-      request.delete("application/delete/" +  id).then(res=>{
-        if(res.code==="success"){
-          this.$notify.success('删除成功')
-          location.reload()
-        }else{
-          this.$notify.error(res.msg);
-        }
-      })
     },
     // handleClose(done) {
     //   this.$confirm('确认关闭？')

@@ -2,7 +2,6 @@
 <template>
   <div>
     <!--    搜索表单-->
-    <div>
     <div style="margin-bottom: 20px">
       <el-input style="width: 150px" placeholder="请输入名称" v-model="params.name"></el-input>
       <el-input style="width: 150px; margin-left: 5px" placeholder="请输入学号" v-model="params.studentId"></el-input>
@@ -13,17 +12,10 @@
         <i class="el-icon-refresh"></i>重置
       </el-button>
       <AddAdminShow ref="AddAdminShow"></AddAdminShow>
-      <el-button type="primary" style="margin-left:650px" @click="OpenAddAdminShow" >添加成员
+      <el-button type="primary" style="margin-left: 650px" @click="OpenAddAdminShow" >添加成员
       </el-button>
-      <div>
-        <el-menu class="el-menu-demo" mode="horizontal">
-          <el-menu-item index="1" @click="set('')">全部</el-menu-item>
-          <el-menu-item index="2" @click="set('no')">普通管理员</el-menu-item>
-          <el-menu-item index="3" @click="set('yes')">超级管理员</el-menu-item>
-        </el-menu>
-      </div>
     </div>
-    <el-table :data="tableData" stripe border >
+    <el-table :data="tableData" stripe >
       <el-table-column prop="id" label="编号" width="50px"></el-table-column>
       <el-table-column prop="name" label="姓名" ></el-table-column>
       <el-table-column prop="sex" label="性别" ></el-table-column>
@@ -55,7 +47,6 @@
       </el-table-column>
 
     </el-table>
-    </div>
     <!--    分页-->
     <div style="margin-top: 20px">
       <el-pagination
@@ -64,8 +55,9 @@
           :page-size="params.size"
           layout="prev, pager, next"
           @current-change="handleCurrentChange"
-          :total="tableData.length">
+          :total="total">
       </el-pagination>
+
     </div>
   </div>
 
@@ -94,8 +86,7 @@ export default {
   data(){
 
     return {
-
-      checkFlag: '',
+      flag: true,
       tableData: [],
       total: 0,
       params: {
@@ -127,7 +118,6 @@ export default {
 
 
     load() {
-      this.params.superAdmin = this.checkFlag;
       request.get('/admin/page', {
         params: this.params
       }).then(res => {
@@ -146,10 +136,6 @@ export default {
       studentId: ''
     }
   },
-    set(flag){
-      this.checkFlag = flag;
-      this.load()
-    },
   handleCurrentChange(page) {
     //点击分页按钮触发
     this.params.page = page;
