@@ -169,7 +169,7 @@ export default {
     del(id){
       request.delete("/message/delete/"+id).then(res=>{
         if(res.code==="success"){
-          this.$notify.success("删除成功！")
+          this.$notify.success("删除成功！" )
           location.reload()
         }
         else{
