@@ -24,10 +24,10 @@
         order by id desc
     </select>
 
-    <select id="addAdmin" resultType="com.example.springboot.entity.Admin">
+    <insert id="addAdmin">
         insert into admin (name, sex, studentId, academy, major, phone, department, cardNumber, qq, weiXin, email,superAdmin)
         values(#{name},#{sex},#{studentId},#{academy},#{major},#{phone},#{department},#{cardNumber},#{qq},#{weiXin},#{email},#{superAdmin})
-    </select>
+    </insert>
 
     <delete id="deleteAdmin">
         delete from  admin where id = #{id}

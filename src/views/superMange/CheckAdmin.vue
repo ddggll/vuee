@@ -14,6 +14,13 @@
       <AddAdminShow ref="AddAdminShow"></AddAdminShow>
       <el-button type="primary" style="margin-left: 650px" @click="OpenAddAdminShow" >添加成员
       </el-button>
+      <div>
+        <el-menu class="el-menu-demo" mode="horizontal">
+          <el-menu-item index="1" @click="set('')">全部成员</el-menu-item>
+          <el-menu-item index="2" @click="set('no')">普通管理员</el-menu-item>
+          <el-menu-item index="3" @click="set('yes')">高级管理员</el-menu-item>
+        </el-menu>
+      </div>
     </div>
     <el-table :data="tableData" stripe >
       <el-table-column prop="id" label="编号" width="50px"></el-table-column>
@@ -70,6 +77,7 @@
 <script>
 
 import request from "@/utils/requeset";
+import Cookies  from "js-cookie";
 
 import UpdateAdminShow from "@/views/superMange/UpdateAdmin.vue";
 import AddAdminShow from "@/views/superMange/AddAdmin.vue";
@@ -86,14 +94,17 @@ export default {
   data(){
 
     return {
+      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{},
       flag: true,
+      super:'',
       tableData: [],
       total: 0,
       params: {
         page: 1,
         size: 10,
         name: '',
-        studentId: ''
+        studentId: '',
+        superAdmin:''
       },
       rules: {
         name: [
@@ -110,14 +121,13 @@ export default {
     }
   },
   created() {
-
-    this.load()
-
+    this.set('')
   },
   methods:{
 
 
     load() {
+      this.params.superAdmin=this.super;
       request.get('/admin/page', {
         params: this.params
       }).then(res => {
@@ -140,6 +150,10 @@ export default {
     //点击分页按钮触发
     this.params.page = page;
     this.load()
+  },
+  set(flag){
+      this.super=flag;
+      this.load();
   },
   del(id){
     request.delete("admin/deleteAdmin/" + id).then(res => {

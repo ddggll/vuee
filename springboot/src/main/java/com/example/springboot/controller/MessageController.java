@@ -45,5 +45,11 @@ public class MessageController {
         return Result.success(message);
     }
 
+    @PostMapping("/add")
+    public Result add(@RequestBody Message message){
+        messageService.add(message);
+        return Result.success();
+    }
+
 
 }

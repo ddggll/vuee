@@ -10,7 +10,7 @@
         <el-button style="margin-left: 5px " type="warning" @click="reset">
           <i class="el-icon-refresh"></i>重置
         </el-button>
-        <el-button type="primary" style="margin-left: 670px" @click="OpenAddAdminShow" >添加通知
+        <el-button type="primary" style="margin-left: 670px" @click="openTan" >添加通知
         </el-button>
       </div>
 
@@ -54,6 +54,8 @@
       </div>
     </div>
   </div>
+
+<!--  消息推送-->
   <div>
     <el-dialog title="消息推送" :visible.sync="editLog" width="60%" justify="center">
       <div>
@@ -69,6 +71,11 @@
           </el-form-item>
 
         </el-form>
+        <div style="text-align: center">
+          <el-button type="primary" @click="messagePush">提交</el-button>
+          <el-button @click="editLog=false">取消</el-button>
+        </div>
+
       </div>
     </el-dialog>
   </div>
@@ -86,6 +93,7 @@
       </div>
     </el-dialog>
   </div>
+
 
 
 
@@ -195,6 +203,22 @@ export default {
           this.noticeLog = true;
         }
       })
+    },
+    openTan(){
+      this.editLog = true;
+    },
+    messagePush(){
+      request.post("/message/add",this.form).then(res=>{
+        if(res.code === "success"){
+          this.$notify.success('新增成功')
+          this.editLog=false
+          this.load()
+        }
+        else{
+          this.$notify.error(res.msg);
+        }
+      })
+
     }
   }
 }

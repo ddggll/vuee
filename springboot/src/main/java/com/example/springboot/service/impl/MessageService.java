@@ -40,4 +40,9 @@ public class MessageService implements IMessageService {
     public Message getById(Integer id){
       return messageMapper.getById(id);
     }
+
+    @Override
+    public void add(Message message){
+        messageMapper.add(message);
+    }
 }

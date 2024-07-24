@@ -32,6 +32,11 @@
         select * from message where id = #{id}
     </select>
 
+    <insert id="add" >
+        insert into message (headline,address, content, type, state)
+        values(#{headline},#{address},#{content},#{type},#{state})
+    </insert>
+
 
 
 

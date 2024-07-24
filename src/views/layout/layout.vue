@@ -40,8 +40,9 @@
 
             </template>
             <el-menu-item index="/application">处理预约</el-menu-item>
+            <el-menu-item index="/messagesPush">消息推送</el-menu-item>
           </el-submenu>
-          <el-submenu index="3">
+          <el-submenu index="3" v-if="admin.superAdmin==='yes' ">
             <template slot="title">
               <i class="el-icon-setting"></i>
               <span>成员管理</span>

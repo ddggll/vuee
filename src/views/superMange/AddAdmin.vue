@@ -49,7 +49,7 @@
 </div>
 <div style="text-align: center">
   <el-button type="primary" @click ="addAdmin" >提交</el-button>
-  <!--      <el-button type="danger">取消</el-button>-->
+  <el-button @click="addAdminLog=false">取消</el-button>
 </div>
 </el-dialog>
 </template>

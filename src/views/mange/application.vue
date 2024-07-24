@@ -36,6 +36,9 @@
             <template v-slot:default="scope">
 
               <el-button icon="el-icon-edit" type="primary" @click="handle(scope.row.id)"></el-button>
+              <el-popconfirm title="这是一段内容确定删除吗？" @confirm="del(scope.row.id)">
+                <el-button icon="el-icon-delete" type="danger" style="margin-left: 5px" slot="reference"></el-button>
+              </el-popconfirm>
 
             </template>
 
@@ -82,11 +85,12 @@
               <el-descriptions-item label="指导老师">{{ form.teacher }}</el-descriptions-item>
             </el-descriptions>
             <div style="margin-top: 20px;margin-left: 500px">
-              <p>审核意见 :</p>
-              <el-radio-group v-model="form.opinion" size="middle" style="margin-top: 20px">
+              <p>审核意见 :{{form.opinion}}</p>
+
+              <el-radio-group v-model="form.opinion" v-if="form.state==='no'" size="middle" style="margin-top: 20px">
                 <el-radio v-model="form.opinion" label="通过">通过</el-radio>
                 <el-radio v-model="form.opinion" label="不通过">不通过</el-radio>
-                <el-button type="primary" :disabled="params.state==='yes'"  @click="submit">提交</el-button>
+                <el-button type="primary"   @click="submit">提交</el-button>
 
               </el-radio-group>
             </div>
@@ -206,6 +210,17 @@ export default {
           this.$notify.error(res.msg);
         }
       })
+    },
+    del(id){
+      request.delete("/application/delete/"+id).then(res=>{
+        if(res.code==="success"){
+          this.$notify.success("删除成功！" )
+          location.reload()
+        }
+        else{
+          this.$notify(res.msg)
+        }
+})
     }
   }
 
