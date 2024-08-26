@@ -10,6 +10,7 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" v-on:click="onSubmit('loginForm')">登录</el-button>
+        <a href="http://localhost:8082/home">忘记密码</a>
         <el-form>
           <router-link to="/user">
             <el-radio v-model="radio" label="1">用户</el-radio>

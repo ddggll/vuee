@@ -2,7 +2,7 @@
 
 <template>
     <div>
-      <div>
+      <div style="margin-top: 20px">
         <div style="margin-bottom: 20px">
           <el-input style="width: 150px" placeholder="请输入名称" v-model="params.username"></el-input>
           <el-input style="width: 150px; margin-left: 5px" placeholder="请输入电话" v-model="params.phone"></el-input>
@@ -12,20 +12,26 @@
           <el-button style="margin-left: 5px " type="warning" @click="reset">
             <i class="el-icon-refresh"></i>重置
           </el-button>
-          <div>
+          <div >
             <el-menu class="el-menu-demo" mode="horizontal">
               <el-menu-item index="1" @click="set('')">全部预约</el-menu-item>
-              <el-menu-item index="2" @click="set('no')">待处理</el-menu-item>
-              <el-menu-item index="3" @click="set('yes')">已处理</el-menu-item>
+              <el-menu-item index="2" @click="set('0')">待处理</el-menu-item>
+              <el-menu-item index="3" @click="set('1')">已处理</el-menu-item>
             </el-menu>
           </div>
 
         </div>
       </div>
       <div>
-        <el-table :data="tableData" style="width: 100%">
-          <el-table-column prop="id" label="编号" width="50px"></el-table-column>
-          <el-table-column prop="useTime" label="日期"></el-table-column>
+        <div style="height: 450px">
+        <el-table :data="tableData" style="width: 100%; height: 100%"
+                  v-loading="loading"
+                  element-loading-text="拼命加载中"
+                  element-loading-spinner="el-icon-loading"
+                  element-loading-background="rgba(0, 0, 0, 0.5)">
+          <el-table-column prop="id" label="编号" ></el-table-column>
+          <el-table-column prop="day" label="日期" ></el-table-column>
+          <el-table-column prop="time" label="时间" ></el-table-column>
           <el-table-column prop="username" label="申请人"></el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column prop="number" label="人数"></el-table-column>
@@ -35,8 +41,9 @@
           <el-table-column label="操作">
             <template v-slot:default="scope">
 
-              <el-button icon="el-icon-edit" type="primary" @click="handle(scope.row.id)"></el-button>
-              <el-popconfirm title="这是一段内容确定删除吗？" @confirm="del(scope.row.id)">
+              <el-button icon="el-icon-edit" v-if="scope.row.state==='0'" type=primary @click="handle(scope.row.id)"></el-button>
+              <el-button icon="el-icon-check" v-if="scope.row.state==='1'" type=success @click="handle(scope.row.id)"></el-button>
+              <el-popconfirm title="这是一段内容确定删除吗？" v-if="admin.superAdmin==='yes' " @confirm="del(scope.row.id)">
                 <el-button icon="el-icon-delete" type="danger" style="margin-left: 5px" slot="reference"></el-button>
               </el-popconfirm>
 
@@ -45,10 +52,11 @@
           </el-table-column>
 
         </el-table>
+        </div>
 
 <!--        分页-->
         <div style="margin-top: 20px ; width: 100%;display: flex;" >
-          <div style="position: relative; margin-left: 1px;">
+          <div style="position: relative; margin-left: 10px;">
             <p style="font-size:10px;margin-top: 2px">共{{ tableData.length }}条</p>
           </div>
           <div style="width: 200px;margin-left:1020px">
@@ -78,8 +86,9 @@
               <el-descriptions-item label="手机号">{{ form.phone }}</el-descriptions-item>
               <el-descriptions-item label="使用学院或组织">{{ form.academy }}</el-descriptions-item>
               <el-descriptions-item label="活动人数">{{ form.number }}</el-descriptions-item>
+              <el-descriptions-item label="活动日期">{{ form.day }}</el-descriptions-item>
+              <el-descriptions-item label="活动时间">{{ form.time }}</el-descriptions-item>
               <el-descriptions-item label="活动内容">{{ form.content }}</el-descriptions-item>
-              <el-descriptions-item label="活动时间">{{ form.useTime }}</el-descriptions-item>
               <el-descriptions-item label="使用场地">{{ form.site }}</el-descriptions-item>
               <el-descriptions-item label="使用设备">{{ form.equipment }}</el-descriptions-item>
               <el-descriptions-item label="指导老师">{{ form.teacher }}</el-descriptions-item>
@@ -87,7 +96,7 @@
             <div style="margin-top: 20px;margin-left: 500px">
               <p>审核意见 :{{form.opinion}}</p>
 
-              <el-radio-group v-model="form.opinion" v-if="form.state==='no'" size="middle" style="margin-top: 20px">
+              <el-radio-group v-model="form.opinion" v-if="form.state==='0'" size="middle" style="margin-top: 20px">
                 <el-radio v-model="form.opinion" label="通过">通过</el-radio>
                 <el-radio v-model="form.opinion" label="不通过">不通过</el-radio>
                 <el-button type="primary"   @click="submit">提交</el-button>
@@ -111,6 +120,7 @@
 
 
 import request from "@/utils/requeset";
+import Cookies  from "js-cookie";
 
 
 
@@ -120,13 +130,15 @@ export default {
   },
   data(){
     return{
+      admin: Cookies.get('admin')?JSON.parse(Cookies.get('admin')):{},
       handleLog : false,
       opinions:'',
       form:{
         username:'',
         phone:'',
         content:'',
-        useTime:'',
+        time:'',
+        day:'',
         site:'',
         equipment:'通过',
         teacher:'',
@@ -137,6 +149,7 @@ export default {
         number:''
       },
       tableData: [],
+      loading: true,
       handleFlag:'',
       params: {
         page: 1,
@@ -145,7 +158,8 @@ export default {
         phone: '',
         opinion:'',
         state:'',
-        useTime:'',
+        time:'',
+        day:'',
         id:''
       },
     }
@@ -160,6 +174,7 @@ export default {
       request.get("application/page" ,{
         params:this.params}).then(res=>{
         if(res.code === "success") {
+          this.loading=false
           console.log(res.data.list)
           this.tableData = res.data.list
           this.total = res.data.total
@@ -196,7 +211,7 @@ export default {
     },
     submit(){
       this.form.opinion=this.form.opinion==='通过'?'通过':'不通过'
-      this.form.state='yes'
+      this.form.state='1'
       console.log(this.form.opinion)
       request.put("/application/handleApplication",this.form).then(res=>{
         console.log(res.code)

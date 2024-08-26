@@ -3,10 +3,13 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/community_for_students?serverTimezone=GMT%2b8
+#    url: jdbc:mysql://localhost:3306/community_for_students?serverTimezone=GMT%2b8
+    url: jdbc:mysql://36.133.97.46:3306/student
     hikari:
-      username: root
-      password: root123456
+#      username: root
+#      password: root123456
+      username: student
+      password: 123456
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml

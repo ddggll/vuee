@@ -27,12 +27,17 @@
     <!--侧边栏和主体-->
     <div style="display: flex">
       <!--侧边栏导航-->
-      <div style="width: 200px;min-height: calc(100vh - 62px); overflow: hidden;margin-right: 2px;background-color: #42b983">
-        <el-menu :default-active="$route.path" :active-openeds="['/application']" router class="el-menu-demo">
+      <div class="body">
+        <el-menu :default-active="$route.path" :active-openeds="['/application']" router class="el-menu-demo" style="background-color: rgba(255,255,255,0.7)">
+<!--          <el-menu-item index="/application">-->
+<!--            <i class="el-icon-s-cooperation"></i>-->
+<!--            <span>处理中心</span>-->
+<!--          </el-menu-item>-->
           <el-menu-item index="/application">
             <i class="el-icon-s-cooperation"></i>
-            <span>处理中心</span>
+            <span>预约管理</span>
           </el-menu-item>
+
           <el-submenu index="2">
             <template slot="title">
               <i class="el-icon-setting"></i>
@@ -42,21 +47,27 @@
             <el-menu-item index="/application">处理预约</el-menu-item>
             <el-menu-item index="/messagesPush">消息推送</el-menu-item>
           </el-submenu>
-          <el-submenu index="3" v-if="admin.superAdmin==='yes' ">
-            <template slot="title">
-              <i class="el-icon-setting"></i>
-              <span>成员管理</span>
-            </template>
-            <el-menu-item index="/checkAdmin">成员查看</el-menu-item>
-<!--            <el-menu-item index="/addAdmin">成员添加</el-menu-item>-->
-<!--            <el-menu-item index="/test">成员删除</el-menu-item>-->
-          </el-submenu>
+
+          <el-menu-item index="/checkAdmin"><i class="el-icon-setting"></i>成员管理</el-menu-item>
+          <el-menu-item index="/siteMange"><i class="el-icon-setting"></i>场地管理</el-menu-item>
+
+<!--          <el-submenu index="3" v-if="admin.superAdmin==='yes' ">-->
+<!--            <template slot="title">-->
+<!--              <i class="el-icon-setting"></i>-->
+<!--              <span>成员管理</span>-->
+
+
+<!--            </template>-->
+<!--&lt;!&ndash;            <el-menu-item index="/checkAdmin">成员查看</el-menu-item>&ndash;&gt;-->
+<!--&lt;!&ndash;            <el-menu-item index="">成员删除</el-menu-item>&ndash;&gt;-->
+<!--          </el-submenu>-->
         </el-menu>
       </div>
 
       <!--主体数据-->
       <div style="flex: 1; background-color: white; padding: 10px">
         <router-view />
+
       </div>
     </div>
   </div>
@@ -70,10 +81,22 @@ export default {
     }
   },
   methods:{
-    logout(){Cookies.remove('admin');
+    logout(){
+      Cookies.remove('admin');
       this.$router.push('/admin');
+
 
     }
   }
 }
 </script>
+<style>
+.body{
+  background-image: url("@/assets/9.jpg");
+  width: 200px;
+  min-height: calc(100vh - 62px);
+  overflow: hidden;
+  margin-right: 2px;
+  background-color: #42b983
+}
+</style>

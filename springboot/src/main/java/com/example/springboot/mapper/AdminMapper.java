@@ -25,4 +25,6 @@ public interface AdminMapper {
     void updateAdmin(Admin admin);
 
     Admin getByNameAndPassword(LoginRequest request);
+
+    Admin getByStudentId(String studentId);
 }

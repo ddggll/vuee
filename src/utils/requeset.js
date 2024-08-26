@@ -4,16 +4,17 @@ import Cookies  from "js-cookie";
 
 const request = axios.create({
     baseURL: 'http://localhost:9090',
+    // baseURL: 'http://36.133.97.46:9090',
     timeout: 5000
 })
 
 request.interceptors.request.use(config => {
     config.headers['Content-Type'] = 'application/json; charset=utf-8';
 
-    const admin= Cookies.get('admin');
-    if(!admin){
-        //router.push('/');
-    }
+    // const admin= Cookies.get('admin');
+    // if(!admin){
+    //     router.push('/');
+    // }
     return config;
 },error => {
     return Promise.reject(error);

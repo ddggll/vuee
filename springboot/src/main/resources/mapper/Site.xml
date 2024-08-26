@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.springboot.mapper.SiteMapper">
+    <select id="listByCondition" resultType="com.example.springboot.entity.Site">
+        select * from site
+        <where>
+            <if test="siteName != null and siteName != ''">
+                and siteName like concat('%',#{siteName},'%')
+            </if>
+            <if test="siteAddress != null and siteAddress != ''">
+                and siteAddress like concat('%' ,#{siteAddress},'%')
+            </if>
+            <if test="siteType != null and siteType != ''">
+                and siteType like concat('%' ,#{siteType},'%')
+            </if>
+            <if test="siteState != null and siteState != ''">
+                and siteState like concat('%' ,#{siteState},'%')
+            </if>
+
+        </where>
+    </select>
+</mapper>

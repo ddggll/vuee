@@ -1,7 +1,7 @@
 <template>
-  <div>
-    <el-form ref="loginForm" :model="form" :rules="rules" label-width="8epx" class="login-box">
-      <h3 class="login-title">管理员登录</h3>
+  <div id="building">
+    <el-form ref="loginForm" :model="form" :rules="rules" label-width="8epx" class="login">
+      <h3 class="login-title">登录</h3>
 
       <el-form-item label="账号" prop="studentId">
         <el-input type="text" placeholder="请输入账号" v-model="form.studentId"/>
@@ -11,16 +11,9 @@
         <el-input type="password" show-password placeholder="请输入密码" v-model="form.password"/>
       </el-form-item>
 
-      <el-form-item>
+      <el-form-item style="margin-left: 100px">
         <el-button type="primary" @click="login">登录</el-button>
-        <el-form>
-          <router-link to="/user">
-            <el-radio v-model="radio" label="1">用户</el-radio>
-          </router-link>
-          <router-link to="/admin">
-            <el-radio v-model="radio" label="2">管理员</el-radio>
-          </router-link>
-        </el-form>
+
 
       </el-form-item>
     </el-form>
@@ -70,13 +63,13 @@ export default {
     login(){
       this.$refs["loginForm"].validate((valid) => {
         if (valid) {
-          request.post('admin/login', this.form).then((res) => {
+          request.post('/admin/login', this.form).then((res) => {
             if (res.code === "success") {
               this.$notify.success("登录成功")
-               this.$router.push('/layout')
               if(res.data != null){
                 Cookies.set('admin', JSON.stringify(res.data))
               }
+              this.$router.push('/layout')
 
             } else {
               this.$notify.error(res.msg);
@@ -96,16 +89,24 @@ export default {
 
 </script>
 <style lang="scss" scoped>
-.login-box {
+.login {
   border: 1px solid #DCDFE6;
   width: 350px;
-  margin: 18px auto;
+  margin:  100px auto;
   padding: 35px 35px 15px 35px;
   border-radius: 5px;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   box-shadow: 0 0 25px #909399;
-  background-color: white;
+  background-color:rgba(255,255,255,0.7)
+
+}
+.box {
+  width: 100%;
+  height: 100%;
+  background-image: url("@/assets/doorLogo.png");
+  position:fixed;
+  background-size:100% 100%;
 }
 
 .login-title {
@@ -113,4 +114,13 @@ export default {
   margin: 0 auto 40px auto;
   color: #303133;
 }
+#building{
+  width:100%;
+  height:100%;
+  position:fixed;
+  background: url("@/assets/bcg.png") no-repeat center;
+
+  background-size:cover;
+}
+
 </style>

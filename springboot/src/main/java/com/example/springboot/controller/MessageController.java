@@ -19,8 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class MessageController {
     @Autowired
     private IMessageService messageService;
-    @Autowired
-    private MessageMapper messageMapper;
+
 
     @GetMapping("/page")
     public Result page(MessagePageRequest messagePageRequest) {

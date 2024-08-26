@@ -14,13 +14,13 @@
 .login-title{
   height: 100px;
   line-height:100px;
-  margin-bottom: 1px;
+
   background-color: powderblue;
 }
 .login-box{
 
-  height: calc(100vh - 70px);
-  padding-top: 100px;
+  height: calc(100vh - 100px);
+  padding-top: 1px;
   background-color:white;
 }
 </style>

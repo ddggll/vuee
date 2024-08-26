@@ -17,7 +17,8 @@ public class Application {
     private String number;
     private String content;
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
-    private Date useTime;
+    private String time;
+    private String day;
     private String site;
     private String equipment;
     private String teacher;

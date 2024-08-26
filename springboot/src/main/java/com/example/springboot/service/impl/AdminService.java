@@ -11,12 +11,12 @@ import com.example.springboot.mapper.AdminMapper;
 import com.example.springboot.service.IAdminService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.DigestUtils;
 
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 /**
@@ -24,6 +24,7 @@ import java.util.List;
  */
 @Service
 public class AdminService implements IAdminService {
+    private static final Logger log = LoggerFactory.getLogger(AdminService.class);
     @Autowired
     AdminMapper adminMapper;
 
@@ -62,10 +63,22 @@ public class AdminService implements IAdminService {
 
     @Override
     public LoginDTO login(LoginRequest request){
-        Admin admin=adminMapper.getByNameAndPassword(request);
-        if(admin==null){
-            throw new ServiceException("用户名或密码错误");
+        Admin admin=null;
+        try {
+            admin=adminMapper.getByStudentId(request.getStudentId());
+        }catch (Exception e){
+            throw new ServiceException("用户名错误");
         }
+        if(admin==null){
+            throw new ServiceException("用户名错误");
+        }
+        if(!admin.getPassword().equals(request.getPassword())){
+            throw new ServiceException("密码错误");
+        }
+
+
+//        Admin admin=adminMapper.getByNameAndPassword(request);
+
         LoginDTO loginDTO=new LoginDTO();
         BeanUtils.copyProperties(admin,loginDTO);
         return loginDTO;

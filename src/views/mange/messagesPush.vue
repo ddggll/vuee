@@ -12,9 +12,20 @@
         </el-button>
         <el-button type="primary" style="margin-left: 670px" @click="openTan" >添加通知
         </el-button>
+        <div>
+        <el-menu class="el-menu-demo" mode="horizontal">
+          <el-menu-item index="1">全部消息</el-menu-item>
+
+        </el-menu>
+      </div>
       </div>
 
-      <el-table :data="tableData" border  stripe>
+     <div style="height:450px">
+      <el-table :data="tableData" border  stripe style="height: 100%"
+                v-loading="loading"
+                element-loading-text="拼命加载中"
+                element-loading-spinner="el-icon-loading"
+                element-loading-background="rgba(0, 0, 0, 0.8)">
         <el-table-column prop="id" label="编号" width="50px"></el-table-column>
         <el-table-column prop="headline" label="标题"></el-table-column>
         <el-table-column prop="address" label="地址">
@@ -35,13 +46,13 @@
         </el-table-column>
 
       </el-table>
-
+     </div>
     </div>
 
     <!--        分页-->
     <div style="margin-top: 20px ; width: 100%;display: flex;" >
       <div style="position: relative; margin-left: 1px;width: 100px">
-        <p style="font-size:15px;margin-top: 2px">共{{ tableData.length }}条通知</p>
+        <p style="font-size:10px;margin-top: 2px">共{{ tableData.length }}条通知</p>
       </div>
       <div style="width: 200px;margin-left:900px">
         <el-pagination
@@ -85,7 +96,6 @@
     <el-dialog title="通知详情" :visible.sync="noticeLog" width="60%" center>
       <div>
         <el-descriptions title="详情" :column="1" :size="'medium'" class="margin-top" border>
-
           <el-descriptions-item label="标题">{{ form.headline }}</el-descriptions-item>
           <el-descriptions-item label="内容">{{ form.content }}</el-descriptions-item>
           <el-descriptions-item label="地址">{{ form.address }}</el-descriptions-item>
@@ -109,7 +119,7 @@
 
 <script>
 import request from "@/utils/requeset";
-import AddAdminShow from "@/views/superMange/AddAdmin.vue";
+import AddAdminShow from "@/views/superAdminMange/AddAdmin.vue";
 
 
 export default {
@@ -136,6 +146,7 @@ export default {
       },
       editLog : false,
       noticeLog: false,
+      loading: true,
       form:{
         id:'',
         address:'',
@@ -156,6 +167,7 @@ export default {
       request.get("/message/page" ,{
         params:this.params}).then(res=>{
         if(res.code === "success") {
+          this.loading=false
           this.tableData = res.data.list
           this.total = res.data.total
         }
