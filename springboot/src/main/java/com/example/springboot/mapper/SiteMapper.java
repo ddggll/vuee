@@ -12,4 +12,12 @@ import java.util.List;
 @Mapper
 public interface SiteMapper {
     List<Site> listByCondition(SitePageRequest sitePageRequest);
+
+    void deleteSite(Integer id);
+
+    Site getById(Integer id);
+
+    void siteUpdate(Site site);
+
+    void siteAdd(Site site);
 }

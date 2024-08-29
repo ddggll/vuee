@@ -34,12 +34,6 @@ export default {
       flag:true,
       tableData: [],
       total: 0,
-      params: {
-        page: 1,
-        size: 10,
-        name: '',
-        studentId: ''
-      },
       form: {
         name: '',
         sex: '',

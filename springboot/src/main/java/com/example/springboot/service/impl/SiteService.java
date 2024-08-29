@@ -23,8 +23,29 @@ public class SiteService implements ISiteService {
 
     @Override
     public PageInfo<Site> page(SitePageRequest sitePageRequest){
-        PageHelper.startPage(sitePageRequest.getPage(), sitePageRequest.getSize());
+        PageHelper.startPage(sitePageRequest.getPageNum(), sitePageRequest.getPageSize());
         List<Site> sites = siteMapper.listByCondition(sitePageRequest);
         return new PageInfo<>(sites);
     }
+
+    @Override
+    public void deleteSite(Integer id){
+        siteMapper.deleteSite(id);
+    }
+
+    @Override
+    public Site getById(Integer id){
+        return siteMapper.getById(id);
+    }
+
+    @Override
+    public void siteUpdate(Site site){
+        siteMapper.siteUpdate(site);
+    }
+
+    @Override
+    public  void siteAdd(Site site){
+        siteMapper.siteAdd(site);
+    }
+
 }

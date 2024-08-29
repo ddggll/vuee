@@ -12,6 +12,7 @@ import lombok.Data;
 public class Application {
     private Integer id;
     private String username;
+    private String admin;
     private String phone;
     private String academy;
     private String number;

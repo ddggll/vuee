@@ -37,19 +37,11 @@
             <i class="el-icon-s-cooperation"></i>
             <span>预约管理</span>
           </el-menu-item>
+            <el-menu-item index="/messagesPush"><i class="el-icon-s-promotion"></i>消息推送</el-menu-item>
 
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-setting"></i>
-              <span>我的工作台</span>
 
-            </template>
-            <el-menu-item index="/application">处理预约</el-menu-item>
-            <el-menu-item index="/messagesPush">消息推送</el-menu-item>
-          </el-submenu>
-
-          <el-menu-item index="/checkAdmin"><i class="el-icon-setting"></i>成员管理</el-menu-item>
-          <el-menu-item index="/siteMange"><i class="el-icon-setting"></i>场地管理</el-menu-item>
+          <el-menu-item v-if="admin.superAdmin==='yes'" index="/checkAdmin"><i class="el-icon-user-solid"></i>成员管理</el-menu-item>
+          <el-menu-item index="/siteMange"><i class="el-icon-s-tools"></i>场地管理</el-menu-item>
 
 <!--          <el-submenu index="3" v-if="admin.superAdmin==='yes' ">-->
 <!--            <template slot="title">-->

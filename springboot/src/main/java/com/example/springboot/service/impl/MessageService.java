@@ -21,7 +21,7 @@ public class MessageService implements IMessageService {
 
   @Override
     public PageInfo<Message> page(MessagePageRequest messagePageRequest) {
-      PageHelper.startPage(messagePageRequest.getPage(), messagePageRequest.getSize());
+      PageHelper.startPage(messagePageRequest.getPageNum(), messagePageRequest.getPageSize());
       List<Message> messages = messageMapper.listByCondition(messagePageRequest);
       return new PageInfo<>(messages);
     }

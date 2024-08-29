@@ -21,4 +21,22 @@
 
         </where>
     </select>
+
+    <delete id="deleteSite">
+        delete  from site where id = #{id}
+    </delete>
+
+    <select id="getById" resultType="com.example.springboot.entity.Site">
+        select * from site where id = #{id}
+    </select>
+
+    <update id="siteUpdate">
+        update site set  imageUrl = #{imageUrl}, siteName = #{siteName}, siteAddress = #{siteAddress},
+        number = #{number}, siteType = #{siteType}, siteState = #{siteState} where id = #{id}
+    </update>
+
+    <insert id="siteAdd">
+        insert into site (imageUrl, siteName, siteAddress, number, siteType, siteState)values
+        (#{imageUrl}, #{siteName}, #{siteAddress}, #{number}, #{siteType}, #{siteState})
+    </insert>
 </mapper>

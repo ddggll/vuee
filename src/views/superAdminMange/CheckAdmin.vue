@@ -60,16 +60,19 @@
     </el-table>
     </div>
     <!--    分页-->
-    <div style="margin-top: 20px">
-      <el-pagination
-          background
-          :current-page="params.page"
-          :page-size="params.size"
-          layout="prev, pager, next"
-          @current-change="handleCurrentChange"
-          :total="total">
-      </el-pagination>
-
+    <div style="margin-top: 20px ; width: 100%;display: flex;" >
+      <div style="position: relative; margin-left: 1px;width: 100px">
+        <p style="font-size:10px;margin-top: 2px">共{{ tableData.length }}条通知</p>
+      </div>
+      <div style="width: 200px;margin-left:900px">
+        <el-pagination
+            background
+            :current-page="params.page"
+            :page-size="params.size"
+            layout="prev, pager, next"
+            :total="tableData.length">
+        </el-pagination>
+      </div>
     </div>
   </div>
 
@@ -113,8 +116,8 @@ export default {
       tableData: [],
       total: 0,
       params: {
-        page: 1,
-        size: 10,
+        pageNum: 1,
+        pageSize: 10,
         name: '',
         studentId: '',
         superAdmin:''
@@ -154,8 +157,8 @@ export default {
     },
   reset(){
     this.params = {
-      page: 1,
-      size: 10,
+      pageNum: 1,
+      pageSize: 10,
       name:'',
       studentId: ''
     }

@@ -133,11 +133,9 @@ export default {
     return {
       tableData: [],
       total: 0,
-      page: 1,
-      size: 10,
       params: {
-        page: 1,
-        size: 10,
+        pageNum: 1,
+        pageSize: 10,
        address: '',
         phone: '',
         opinion:'',
@@ -175,8 +173,8 @@ export default {
     },
     reset(){
       this.params ={
-        size: 10,
-        page:1,
+        pageSize: 10,
+        pageNum:1,
         headline:'',
         address:'',
         content:'',

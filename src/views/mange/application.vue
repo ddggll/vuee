@@ -23,16 +23,17 @@
         </div>
       </div>
       <div>
-        <div style="height: 450px">
-        <el-table :data="tableData" style="width: 100%; height: 100%"
+        <div style="height: 450px;text-align: center">
+        <el-table :data="tableData" style="width: 100%; height: 100%;"
                   v-loading="loading"
                   element-loading-text="拼命加载中"
                   element-loading-spinner="el-icon-loading"
                   element-loading-background="rgba(0, 0, 0, 0.5)">
-          <el-table-column prop="id" label="编号" ></el-table-column>
-          <el-table-column prop="day" label="日期" ></el-table-column>
+          <el-table-column prop="id" label="编号" width="50px"></el-table-column>
+          <el-table-column prop="day" label="日期" width="100px"></el-table-column>
           <el-table-column prop="time" label="时间" ></el-table-column>
           <el-table-column prop="username" label="申请人"></el-table-column>
+          <el-table-column prop="admin" label="学号"></el-table-column>
           <el-table-column prop="phone" label="联系电话"></el-table-column>
           <el-table-column prop="number" label="人数"></el-table-column>
           <el-table-column prop="site" label="使用场地"></el-table-column>
@@ -56,10 +57,10 @@
 
 <!--        分页-->
         <div style="margin-top: 20px ; width: 100%;display: flex;" >
-          <div style="position: relative; margin-left: 10px;">
-            <p style="font-size:10px;margin-top: 2px">共{{ tableData.length }}条</p>
+          <div style="position: relative;">
+            <p style="font-size:10px;margin-top: 2px">共{{ tableData.length }}条预约</p>
           </div>
-          <div style="width: 200px;margin-left:1020px">
+          <div style="width: 200px;margin-left:1000px">
             <el-pagination
                 background
                 :current-page="params.page"
@@ -83,6 +84,7 @@
           <div>
             <el-descriptions title="申请信息" :column="2" :size="'medium'" class="margin-top" border>
               <el-descriptions-item label="用户名">{{ form.username }}</el-descriptions-item>
+              <el-descriptions-item label="学号">{{form.admin}}</el-descriptions-item>
               <el-descriptions-item label="手机号">{{ form.phone }}</el-descriptions-item>
               <el-descriptions-item label="使用学院或组织">{{ form.academy }}</el-descriptions-item>
               <el-descriptions-item label="活动人数">{{ form.number }}</el-descriptions-item>
@@ -135,6 +137,7 @@ export default {
       opinions:'',
       form:{
         username:'',
+        admin:'',
         phone:'',
         content:'',
         time:'',
@@ -152,8 +155,8 @@ export default {
       loading: true,
       handleFlag:'',
       params: {
-        page: 1,
-        size: 10,
+        pageNum: 1,
+        pageSize: 10,
         username: '',
         phone: '',
         opinion:'',
@@ -187,8 +190,8 @@ export default {
     },
     reset(){
       this.params = {
-        page: 1,
-        size: 10,
+        pageNum: 1,
+        pageSize: 10,
         username:'',
         phone:'',
         opinion:''
@@ -214,7 +217,7 @@ export default {
       this.form.state='1'
       console.log(this.form.opinion)
       request.put("/application/handleApplication",this.form).then(res=>{
-        console.log(res.code)
+        // console.log(res.code)
         if(res.code === "success"){
           this.$notify.success('更新成功')
           this.handleLog=false
@@ -235,7 +238,7 @@ export default {
         else{
           this.$notify(res.msg)
         }
-})
+      })
     }
   }
 

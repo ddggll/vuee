@@ -22,7 +22,7 @@ public class ApplicationService implements IApplicationService {
 
     @Override
     public PageInfo<Application> page(ApplicationPageRequest applicationPageRequest) {
-        PageHelper.startPage(applicationPageRequest.getPage(), applicationPageRequest.getSize());
+        PageHelper.startPage(applicationPageRequest.getPageNum(), applicationPageRequest.getPageSize());
         List<Application> applications = applicationMapper.listByCondition(applicationPageRequest);
         return new PageInfo<>(applications);
     }

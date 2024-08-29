@@ -84,7 +84,7 @@ export default {
       // 可能需要通知父组件或其他组件
       this.$emit('close');
     }
-  }
+  },
 }
 
 </script>
